@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="settings-list">
+    <view class="settings-item">
+      <text>消息通知</text>
+      <switch checked="{{notificationEnabled}}" bindchange="onNotificationChange"/>
+    </view>
+    <view class="settings-item">
+      <text>声音提醒</text>
+      <switch checked="{{soundEnabled}}" bindchange="onSoundChange"/>
+    </view>
+  </view>
+
+  <view class="settings-list">
+    <view class="settings-item" bindtap="clearCache">
+      <text>清除缓存</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <button class="logout-btn" bindtap="logout">退出登录</button>
+</view> 

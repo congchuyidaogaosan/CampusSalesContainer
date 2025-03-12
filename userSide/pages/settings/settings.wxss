@@ -1,0 +1,41 @@
+.container {
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.settings-list {
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.arrow {
+  color: #999;
+}
+
+.logout-btn {
+  width: 90%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #e4393c;
+  color: #fff;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+} 

@@ -1,0 +1,141 @@
+.container {
+  padding: 20rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.order-status {
+  background: #fff;
+  padding: 40rpx 20rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.status-text {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #e4393c;
+}
+
+.order-info {
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 28rpx;
+}
+
+.order-items {
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.order-item {
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.item-price {
+  font-size: 32rpx;
+  color: #e4393c;
+  margin: 10rpx 0;
+}
+
+.item-quantity {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.order-total {
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.total-price {
+  font-size: 36rpx;
+  color: #e4393c;
+  font-weight: bold;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
+.cancel-btn, .repurchase-btn {
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
+
+.cancel-btn {
+  background: #f7f7f7;
+  color: #666;
+  border: 1rpx solid #ddd;
+}
+
+.repurchase-btn {
+  background: #e4393c;
+  color: #fff;
+}

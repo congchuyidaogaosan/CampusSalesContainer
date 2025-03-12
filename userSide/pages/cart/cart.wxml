@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 购物车列表 -->
+  <scroll-view class="cart-list" scroll-y>
+    <view 
+      class="cart-item"
+      wx:for="{{cartItems}}"
+      wx:key="id"
+    >
+      <checkbox 
+        checked="{{item.selected}}"
+        bindtap="onItemSelect"
+        data-id="{{item.id}}"
+      />
+      <image src="{{item.imageUrl}}" mode="aspectFill"/>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-price">¥{{item.price}}</text>
+        <view class="item-quantity">
+          <input 
+            type="number" 
+            value="{{item.quantity}}"
+            bindinput="onQuantityChange"
+            data-id="{{item.id}}"
+          />
+        </view>
+      </view>
+      <view 
+        class="delete-btn"
+        bindtap="onDelete"
+        data-id="{{item.id}}"
+      >删除</view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部结算栏 -->
+  <view class="bottom-bar">
+    <view class="select-all">
+      <checkbox 
+        checked="{{allSelected}}"
+        bindtap="onSelectAll"
+      />
+      <text>全选</text>
+    </view>
+    <view class="total-price">
+      <text>合计：</text>
+      <text class="price">¥{{totalPrice}}</text>
+    </view>
+    <button 
+      class="checkout-btn"
+      bindtap="onCheckout"
+    >结算</button>
+  </view>
+</view> 

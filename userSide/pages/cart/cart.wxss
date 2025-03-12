@@ -1,0 +1,104 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-list {
+  flex: 1;
+  background: #f7f7f7;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.cart-item checkbox {
+  margin-right: 20rpx;
+}
+
+.cart-item image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.item-price {
+  font-size: 32rpx;
+  color: #e4393c;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.item-quantity input {
+  width: 80rpx;
+  text-align: center;
+  border: 1rpx solid #eee;
+}
+
+.delete-btn {
+  padding: 10rpx 20rpx;
+  background: #e4393c;
+  color: #fff;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+.bottom-bar {
+  height: 100rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.select-all {
+  display: flex;
+  align-items: center;
+}
+
+.select-all text {
+  font-size: 28rpx;
+  margin-left: 10rpx;
+}
+
+.total-price {
+  flex: 1;
+  text-align: right;
+  margin-right: 20rpx;
+}
+
+.total-price .price {
+  font-size: 36rpx;
+  color: #e4393c;
+  font-weight: bold;
+}
+
+.checkout-btn {
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #e4393c;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+} 
