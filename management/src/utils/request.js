@@ -33,7 +33,7 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
-      
+
       // 401: 未登录或token过期
       if (res.code === 401) {
         store.dispatch('user/resetToken').then(() => {

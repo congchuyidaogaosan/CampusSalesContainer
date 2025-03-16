@@ -93,20 +93,20 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  const token = getToken()
-  if (to.path === '/login') {
-    if (token) {
-      next('/')
-    } else {
-      next()
-    }
-  } else {
-    if (token) {
-      next()
-    } else {
+  // const token = getToken()
+  // if (to.path === '/login') {
+  //   if (token) {
+  //     next('/')
+  //   } else {
+  //     next()
+  //   }
+  // } else {
+  //   if (token) {
+  //     next()
+  //   } else {
       next('/login')
-    }
-  }
+    // }
+  // }
 })
 
 export default router
