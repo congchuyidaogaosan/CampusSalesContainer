@@ -1,4 +1,4 @@
-const BASE_URL = 'https://your-api-domain.com/api'
+const BASE_URL = 'http://localhost:8081/api/'
 
 // 添加请求拦截器
 const requestInterceptor = (options) => {
@@ -61,7 +61,7 @@ const userAPI = {
 
   // 更新用户信息
   updateUserInfo: (userInfo) => {
-    return request('/user/update', {
+    return request('/User/update', {
       method: 'POST',
       data: userInfo
     })
@@ -69,17 +69,17 @@ const userAPI = {
 
   // 获取用户信息
   getUserInfo: () => {
-    return request('/user/info')
+    return request('/User/info')
   },
 
   // 获取用户设置
   getUserSettings: () => {
-    return request('/user/settings')
+    return request('/User/settings')
   },
 
   // 更新用户设置
   updateSettings: (settings) => {
-    return request('/user/settings', {
+    return request('/User/settings', {
       method: 'PUT',
       data: settings
     })
@@ -87,7 +87,7 @@ const userAPI = {
 
   // 退出登录
   logout: () => {
-    return request('/user/logout', {
+    return request('/User/logout', {
       method: 'POST'
     })
   }
@@ -97,22 +97,22 @@ const userAPI = {
 const productAPI = {
   // 获取分类列表
   getCategories: () => {
-    return request('/categories')
+    return request('Type')
   },
 
   // 获取分类商品
   getCategoryProducts: (categoryId) => {
-    return request(`/categories/${categoryId}/products`)
+    return request(`/Type/${categoryId}/products`)
   },
 
   // 获取商品详情
   getProductDetail: (productId) => {
-    return request(`/products/${productId}`)
+    return request(`/Product/${productId}`)
   },
 
   // 搜索商品
   searchProducts: (keyword) => {
-    return request('/products/search', {
+    return request('/Product/search', {
       method: 'GET',
       data: { keyword }
     })

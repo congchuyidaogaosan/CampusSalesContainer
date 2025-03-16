@@ -34,7 +34,6 @@ Page({
 
   async loadUserInfo() {
     if (!this.data.isLogin) return
-    
     try {
       const userInfo = await userAPI.getUserInfo()
       this.setData({
@@ -61,7 +60,7 @@ Page({
           fail: reject
         })
       })
-      
+
       // 获取登录code
       const { code } = await new Promise((resolve, reject) => {
         wx.login({
@@ -69,19 +68,19 @@ Page({
           fail: reject
         })
       })
-      
+
       // 调用登录接口
       const loginResult = await userAPI.login(code)
       wx.setStorageSync('token', loginResult.token)
-      
+
       // 更新用户信息
       await userAPI.updateUserInfo(userInfo)
-      
+
       this.setData({
         userInfo,
         isLogin: true
       })
-      
+
       // 加载用户数据
       this.loadUserInfo()
     } catch (error) {

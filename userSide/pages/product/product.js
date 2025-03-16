@@ -24,7 +24,7 @@ Page({
     try {
       wx.showLoading({ title: '加载中' })
       const product = await productAPI.getProductDetail(id)
-      this.setData({ product })
+      this.setData({ product: product.data })
     } catch (error) {
       wx.showToast({
         title: error.message || '加载失败',

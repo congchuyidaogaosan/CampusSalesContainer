@@ -52,14 +52,14 @@ Page({
     const { cartItems } = this.data
     const index = cartItems.findIndex(item => item.id === id)
     cartItems[index].selected = !cartItems[index].selected
-    
+
     const allSelected = cartItems.every(item => item.selected)
-    
-    this.setData({ 
+
+    this.setData({
       cartItems,
       allSelected
     })
-    
+
     this.calculateTotal()
   },
 
@@ -69,12 +69,12 @@ Page({
       ...item,
       selected: !allSelected
     }))
-    
+
     this.setData({
       cartItems: newCartItems,
       allSelected: !allSelected
     })
-    
+
     this.calculateTotal()
   },
 
@@ -83,7 +83,7 @@ Page({
     const quantity = parseInt(e.detail.value)
     const { cartItems } = this.data
     const index = cartItems.findIndex(item => item.id === id)
-    
+
     if (quantity > 0) {
       try {
         cartItems[index].quantity = quantity
@@ -122,14 +122,14 @@ Page({
     const totalPrice = cartItems
       .filter(item => item.selected)
       .reduce((total, item) => total + item.price * item.quantity, 0)
-    
+
     this.setData({ totalPrice })
   },
 
   onCheckout() {
     const { cartItems } = this.data
     const selectedItems = cartItems.filter(item => item.selected)
-    
+
     if (selectedItems.length === 0) {
       wx.showToast({
         title: '请选择商品',

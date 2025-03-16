@@ -10,12 +10,12 @@ Page({
       },
       {
         id: 2, 
-        name: '零食',
+        type: '零食',
         icon: 'https://example.com/snack.png'
       },
       {
         id: 3,
-        name: '文具',
+        type: '文具',
         icon: 'https://example.com/stationery.png'
       }
     ],
@@ -64,12 +64,13 @@ Page({
 
   async loadCategories() {
     const categories = await productAPI.getCategories()
-    this.setData({ categories })
+    
+    this.setData({ categories:categories.data })
   },
 
   async loadProducts(categoryId = this.data.currentCategory) {
     const products = await productAPI.getCategoryProducts(categoryId)
-    this.setData({ products })
+    this.setData({ products:products.data })
   },
 
   onCategoryTap(e) {

@@ -11,7 +11,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/BrandApparel?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://localhost:3306/shouhougui?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   servlet:
     multipart:
@@ -26,3 +26,20 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+wx:
+  miniapp:
+    appid: wx1234567890abcdef
+    secret: abcdef1234567890abcdef1234567890
+  appId: your_app_id
+  appSecret: your_app_secret
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.mysterybox.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+jwt:
+  secret: your_jwt_secret_key
+  expiration: 86400000  # 24小时

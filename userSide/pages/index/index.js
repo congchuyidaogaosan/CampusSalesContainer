@@ -93,12 +93,71 @@ Page({
   },
   loadBanners() {
     // TODO: 从服务器获取轮播图数据
+
+    wx.request({
+      url: 'http://localhost:8081/api/Slideshow',
+      method: 'get',
+      dataType: 'json',
+      header: {},
+      success: (res) => {
+        this.setData({
+          banners: res.data.data
+        })
+       
+      },
+      fail: (res) => {
+
+      }
+    });
+
+
   },
   loadLocations() {
     // TODO: 从服务器获取售货柜位置数据
+
+
+    wx.request({
+      url: 'http://localhost:8081/api/VendingMachine',
+      method: 'Get',
+      dataType: 'json',
+      header: {},
+      success: (res) => {
+        this.setData({
+          locations: res.data.data
+        })
+        console.log(res.data)
+      },
+      fail: (res) => {
+
+      }
+    });
+
+
+
+
   },
   loadHotProducts() {
     // TODO: 从服务器获取热门商品数据
+
+
+    wx.request({
+      url: 'http://localhost:8081/api/hotProduct',
+      method: 'get',
+      dataType: 'json',
+      header: {},
+      success: (res) => {
+        this.setData({
+          hotProducts: res.data.data
+        })
+       
+      },
+      fail: (res) => {
+
+      }
+    });
+
+
+
   },
   onTapSearch() {
     wx.navigateTo({

@@ -3,13 +3,13 @@
   <scroll-view class="scrollarea" scroll-y type="list">
     <!-- 搜索框 -->
     <view class="search-box">
-      <input type="text" placeholder="搜索商品" bindtap="onTapSearch"/>
+      <input type="text" placeholder="搜索商品" bindtap="onTapSearch" />
     </view>
 
     <!-- 轮播图 -->
     <swiper class="banner" indicator-dots autoplay circular>
       <swiper-item wx:for="{{banners}}" wx:key="id">
-        <image src="{{item.imageUrl}}" mode="aspectFill" bindtap="onTapBanner" data-id="{{item.id}}"/>
+        <image src="{{item.imageUrl}}" mode="aspectFill" bindtap="onTapBanner" data-id="{{item.id}}" />
       </swiper-item>
     </swiper>
 
@@ -17,11 +17,11 @@
     <view class="location-section">
       <view class="section-title">附近售货柜</view>
       <view class="location-list">
-        <view class="location-item" wx:for="{{locations}}" wx:key="id" bindtap="onTapLocation" data-id="{{item.id}}">
-          <image src="{{item.imageUrl}}" mode="aspectFill"/>
+        <view class="location-item" wx:for="{{locations}}" wx:key="id" bindtap="onTapLocation" data-id="{{item.machineId}}">
+          <image src="{{item.machineImage}}" mode="aspectFill" />
           <view class="location-info">
             <view class="location-name">{{item.name}}</view>
-            <view class="location-address">{{item.address}}</view>
+            <view class="location-address">{{item.machineLocation}}</view>
             <view class="location-distance">距离{{item.distance}}米</view>
           </view>
         </view>
@@ -32,11 +32,11 @@
     <view class="hot-section">
       <view class="section-title">热门商品</view>
       <view class="product-list">
-        <view class="product-item" wx:for="{{hotProducts}}" wx:key="id" bindtap="onTapProduct" data-id="{{item.id}}">
-          <image src="{{item.imageUrl}}" mode="aspectFill"/>
+        <view class="product-item" wx:for="{{hotProducts}}" wx:key="id" bindtap="onTapProduct" data-id="{{item.productId}}">
+          <image src="{{item.productImage}}" mode="aspectFill" />
           <view class="product-info">
-            <view class="product-name">{{item.name}}</view>
-            <view class="product-price">¥{{item.price}}</view>
+            <view class="product-name">{{item.productName}}</view>
+            <view class="product-price">¥{{item.productPrice}}</view>
           </view>
         </view>
       </view>

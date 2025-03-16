@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.it.mapper")
+@MapperScan(basePackages = "com.mapper")
 public class ShopApplication {
 
     public static void main(String[] args) {

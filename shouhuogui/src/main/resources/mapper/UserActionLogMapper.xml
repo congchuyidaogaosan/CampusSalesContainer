@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserActionLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.domain.UserActionLog">
+            <id property="logId" column="log_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="actionType" column="action_type" jdbcType="VARCHAR"/>
+            <result property="actionTime" column="action_time" jdbcType="TIMESTAMP"/>
+            <result property="relatedInfo" column="related_info" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        log_id,user_id,action_type,
+        action_time,related_info
+    </sql>
+</mapper>

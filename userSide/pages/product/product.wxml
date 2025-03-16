@@ -1,27 +1,24 @@
 <view class="container">
   <!-- 商品图片 -->
-  <image class="product-image" src="{{product.imageUrl}}" mode="aspectFill"/>
+  <image class="product-image" src="{{product.productImage}}" mode="aspectFill"/>
 
   <!-- 商品信息 -->
   <view class="product-info">
-    <text class="product-name">{{product.name}}</text>
-    <text class="product-price">¥{{product.price}}</text>
-    <text class="product-stock">库存: {{product.stock}}</text>
+    <text class="product-name">{{product.productName}}</text>
+    <text class="product-price">¥{{product.productPrice}}</text>
+    <!-- <text class="product-stock">库存: {{product.productStock}}</text> -->
   </view>
 
   <!-- 商品详情 -->
   <view class="product-detail">
+  
     <view class="detail-item">
-      <text class="detail-label">规格</text>
-      <text class="detail-value">{{product.specs}}</text>
-    </view>
-    <view class="detail-item">
-      <text class="detail-label">成分</text>
-      <text class="detail-value">{{product.ingredients}}</text>
+      <text class="detail-label">库存</text>
+      <text class="detail-value">{{product.productStock}}</text>
     </view>
     <view class="detail-item">
       <text class="detail-label">描述</text>
-      <text class="detail-value">{{product.description}}</text>
+      <text class="detail-value">{{product.productDescription}}</text>
     </view>
   </view>
 
