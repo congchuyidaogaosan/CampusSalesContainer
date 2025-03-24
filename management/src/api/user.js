@@ -5,6 +5,11 @@ export function login(data) {
     url: '/admin/login',
     method: 'post',
     data
+  }).then(response => {
+    if (response.code === 200) {
+      return response.data
+    }
+    throw new Error(response.message || '登录失败')
   })
 }
 

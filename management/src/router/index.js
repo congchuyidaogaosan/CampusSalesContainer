@@ -11,12 +11,11 @@ export const routes = [
     hidden: true
   },
   {
-    path: '/',
+    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard',
     children: [
       {
-        path: 'dashboard',
+        path: '',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
         meta: { title: '首页', icon: 'dashboard' }
@@ -28,7 +27,7 @@ export const routes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'Product',
         component: () => import('@/views/product/index'),
         meta: { title: '商品管理', icon: 'product' }
@@ -40,7 +39,7 @@ export const routes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'Order',
         component: () => import('@/views/order/index'),
         meta: { title: '订单管理', icon: 'order' }
@@ -52,7 +51,7 @@ export const routes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'Machine',
         component: () => import('@/views/machine/index'),
         meta: { title: '售货柜管理', icon: 'machine' }
@@ -64,7 +63,7 @@ export const routes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'User',
         component: () => import('@/views/user/index'),
         meta: { title: '用户管理', icon: 'user' }
@@ -76,7 +75,7 @@ export const routes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'Statistics',
         component: () => import('@/views/statistics/index'),
         meta: { title: '数据统计', icon: 'statistics' }
@@ -86,17 +85,15 @@ export const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
   routes
 })
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  // const token = getToken()
+  // const token = localStorage.getItem('token')
   // if (to.path === '/login') {
   //   if (token) {
-  //     next('/')
+  //     next('/dashboard')
   //   } else {
   //     next()
   //   }
@@ -104,9 +101,10 @@ router.beforeEach((to, from, next) => {
   //   if (token) {
   //     next()
   //   } else {
-      next('/login')
-    // }
+  //     next('/login')
+  //   }
   // }
+  next()
 })
 
 export default router

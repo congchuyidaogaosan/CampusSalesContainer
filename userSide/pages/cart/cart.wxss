@@ -2,23 +2,26 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f7f7f7;
 }
 
 .cart-list {
   flex: 1;
-  background: #f7f7f7;
+  padding: 20rpx;
 }
 
 .cart-item {
   display: flex;
   align-items: center;
-  padding: 20rpx;
+  padding: 30rpx;
   background: #fff;
   margin-bottom: 20rpx;
+  border-radius: 12rpx;
 }
 
 .cart-item checkbox {
   margin-right: 20rpx;
+  transform: scale(0.8);
 }
 
 .cart-item image {
@@ -32,6 +35,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 160rpx;
 }
 
 .item-name {
@@ -44,7 +49,6 @@
   font-size: 32rpx;
   color: #e4393c;
   font-weight: bold;
-  margin-bottom: 10rpx;
 }
 
 .item-quantity input {
@@ -54,11 +58,13 @@
 }
 
 .delete-btn {
-  padding: 10rpx 20rpx;
-  background: #e4393c;
-  color: #fff;
-  border-radius: 30rpx;
+  padding: 12rpx 24rpx;
+  background: #fff;
+  color: #666;
+  border-radius: 26rpx;
   font-size: 24rpx;
+  border: 1rpx solid #ddd;
+  margin-left: 20rpx;
 }
 
 .bottom-bar {
@@ -66,8 +72,8 @@
   background: #fff;
   display: flex;
   align-items: center;
-  padding: 0 20rpx;
-  border-top: 1rpx solid #eee;
+  padding: 0 30rpx;
+  border-top: 1rpx solid #f5f5f5;
 }
 
 .select-all {
@@ -75,15 +81,25 @@
   align-items: center;
 }
 
+.select-all checkbox {
+  transform: scale(0.8);
+}
+
 .select-all text {
   font-size: 28rpx;
   margin-left: 10rpx;
+  color: #333;
 }
 
 .total-price {
   flex: 1;
   text-align: right;
-  margin-right: 20rpx;
+  margin-right: 30rpx;
+}
+
+.total-price text {
+  font-size: 28rpx;
+  color: #666;
 }
 
 .total-price .price {
@@ -94,11 +110,47 @@
 
 .checkout-btn {
   width: 200rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 72rpx;
+  line-height: 72rpx;
   text-align: center;
   background: #e4393c;
   color: #fff;
-  border-radius: 40rpx;
+  border-radius: 36rpx;
   font-size: 28rpx;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  height: 52rpx;
+  border: 1rpx solid #eee;
+  border-radius: 26rpx;
+  width: fit-content;
+  background: #fff;
+}
+
+.quantity-control .minus,
+.quantity-control .plus {
+  width: 52rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.quantity-control input {
+  width: 70rpx;
+  height: 52rpx;
+  min-height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  font-size: 24rpx;
+  border: none;
+  border-left: 1rpx solid #eee;
+  border-right: 1rpx solid #eee;
+}
+
+.quantity-control .minus.disabled {
+  color: #ccc;
 } 

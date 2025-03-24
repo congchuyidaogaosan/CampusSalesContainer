@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: process.env.VUE_APP_BASE_API || '/admin',
   timeout: 5000
 })
 
@@ -18,7 +18,7 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    console.log(error)
+    console.error('Request error:', error)
     return Promise.reject(error)
   }
 )
@@ -34,21 +34,19 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      // 401: 未登录或token过期
       if (res.code === 401) {
-        store.dispatch('user/resetToken').then(() => {
+        store.dispatch('user/logout').then(() => {
           location.reload()
         })
       }
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return res
     }
+    return res
   },
   error => {
-    console.log('err' + error)
+    console.error('Response error:', error)
     Message({
-      message: error.message,
+      message: error.message || '网络错误',
       type: 'error',
       duration: 5 * 1000
     })

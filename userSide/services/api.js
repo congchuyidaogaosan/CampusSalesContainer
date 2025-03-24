@@ -53,7 +53,8 @@ const request = (url, options = {}) => {
 const userAPI = {
   // 登录
   login: (code) => {
-    return request('/user/login', {
+    console.log(code);
+    return request('/WXLogin/setCode', {
       method: 'POST',
       data: { code }
     })

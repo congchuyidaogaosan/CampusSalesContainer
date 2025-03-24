@@ -1,0 +1,145 @@
+// 全局样式变量
+@primary-color: #1890ff;
+@success-color: #67C23A;
+@warning-color: #E6A23C;
+@danger-color: #F56C6C;
+@text-color: #2c3e50;
+@border-color: #EBEEF5;
+
+// 布局
+.app-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+// 侧边栏
+.sidebar-container {
+  transition: width 0.28s;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+  background-color: #304156;
+
+  .el-menu {
+    border: none;
+    height: 100%;
+    width: 100% !important;
+  }
+}
+
+// 主要内容区
+.main-container {
+  min-height: 100%;
+  transition: margin-left .28s;
+  margin-left: 200px;
+  position: relative;
+}
+
+// 头部导航
+.navbar {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+}
+
+// 内容区
+.app-main {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+// 卡片样式
+.el-card {
+  &.is-always-shadow {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  }
+  
+  .el-card__header {
+    padding: 15px 20px;
+    border-bottom: 1px solid @border-color;
+  }
+}
+
+// 表格样式优化
+.el-table {
+  th {
+    background-color: #f5f7fa !important;
+  }
+  
+  td {
+    padding: 8px 0;
+  }
+}
+
+// 表单样式
+.el-form {
+  .el-form-item {
+    margin-bottom: 20px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// 按钮样式
+.el-button {
+  padding: 8px 15px;
+  
+  &--text {
+    padding: 4px 8px;
+  }
+}
+
+// 分页样式
+.el-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+
+// 弹窗样式
+.el-dialog {
+  .el-dialog__header {
+    padding: 15px 20px;
+    border-bottom: 1px solid @border-color;
+  }
+  
+  .el-dialog__footer {
+    padding: 15px 20px;
+    border-top: 1px solid @border-color;
+  }
+}
+
+// 状态标签
+.status-tag {
+  display: inline-block;
+  padding: 0 10px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 12px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+// 图标样式
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+} 

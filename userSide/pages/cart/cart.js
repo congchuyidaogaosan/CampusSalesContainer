@@ -78,7 +78,7 @@ Page({
     this.calculateTotal()
   },
 
-  onQuantityChange(e) {
+  async onQuantityChange(e) {
     const { id } = e.currentTarget.dataset
     const quantity = parseInt(e.detail.value)
     const { cartItems } = this.data
@@ -141,5 +141,51 @@ Page({
     wx.navigateTo({
       url: '/pages/payment/payment'
     })
+  },
+
+  // 添加减少数量方法
+  async onQuantityMinus(e) {
+    const { id } = e.currentTarget.dataset
+    const { cartItems } = this.data
+    const index = cartItems.findIndex(item => item.id === id)
+    const quantity = cartItems[index].quantity - 1
+
+    if (quantity > 0) {
+      try {
+        cartItems[index].quantity = quantity
+        this.setData({ cartItems })
+        await cartAPI.updateCartItem(id, quantity)
+        this.calculateTotal()
+      } catch (error) {
+        wx.showToast({
+          title: error.message || '更新失败',
+          icon: 'none'
+        })
+        cartItems[index].quantity = this.data.cartItems[index].quantity
+        this.setData({ cartItems })
+      }
+    }
+  },
+
+  // 添加增加数量方法
+  async onQuantityPlus(e) {
+    const { id } = e.currentTarget.dataset
+    const { cartItems } = this.data
+    const index = cartItems.findIndex(item => item.id === id)
+    const quantity = cartItems[index].quantity + 1
+
+    try {
+      cartItems[index].quantity = quantity
+      this.setData({ cartItems })
+      await cartAPI.updateCartItem(id, quantity)
+      this.calculateTotal()
+    } catch (error) {
+      wx.showToast({
+        title: error.message || '更新失败',
+        icon: 'none'
+      })
+      cartItems[index].quantity = this.data.cartItems[index].quantity
+      this.setData({ cartItems })
+    }
   }
 }) 

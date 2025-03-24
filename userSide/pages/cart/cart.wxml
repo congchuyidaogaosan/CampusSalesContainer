@@ -16,12 +16,16 @@
         <text class="item-name">{{item.name}}</text>
         <text class="item-price">¥{{item.price}}</text>
         <view class="item-quantity">
-          <input 
-            type="number" 
-            value="{{item.quantity}}"
-            bindinput="onQuantityChange"
-            data-id="{{item.id}}"
-          />
+          <view class="quantity-control">
+            <text class="minus" bindtap="onQuantityMinus" data-id="{{item.id}}">-</text>
+            <input 
+              type="number" 
+              value="{{item.quantity}}"
+              bindinput="onQuantityChange"
+              data-id="{{item.id}}"
+            />
+            <text class="plus" bindtap="onQuantityPlus" data-id="{{item.id}}">+</text>
+          </view>
         </view>
       </view>
       <view 

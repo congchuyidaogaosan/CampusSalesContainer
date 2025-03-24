@@ -25,67 +25,44 @@ const mutations = {
 
 const actions = {
   // 用户登录
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password })
-        .then(response => {
-          const { data } = response
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-          resolve()
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+  async login({ commit }, userInfo) {
+    try {
+      const { username, password } = userInfo
+      const data = await login({ username: username.trim(), password })
+      commit('SET_TOKEN', data.token)
+      setToken(data.token)
+    } catch (error) {
+      console.error('Login error:', error)
+      throw error
+    }
   },
 
   // 获取用户信息
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token)
-        .then(response => {
-          const { data } = response
-          if (!data) {
-            reject('验证失败，请重新登录。')
-          }
-          const { roles, name, avatar } = data
-          commit('SET_ROLES', roles)
-          commit('SET_NAME', name)
-          commit('SET_AVATAR', avatar)
-          resolve(data)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+  async getInfo({ commit }) {
+    try {
+      const data = await getInfo()
+      const { name, avatar, roles } = data
+      commit('SET_NAME', name)
+      commit('SET_AVATAR', avatar)
+      commit('SET_ROLES', roles)
+      return data
+    } catch (error) {
+      console.error('GetInfo error:', error)
+      throw error
+    }
   },
 
   // 用户登出
-  logout({ commit, state, dispatch }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token)
-        .then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  },
-
-  // 移除 token
-  resetToken({ commit }) {
-    return new Promise(resolve => {
+  async logout({ commit }) {
+    try {
+      await logout()
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken()
-      resolve()
-    })
+    } catch (error) {
+      console.error('Logout error:', error)
+      throw error
+    }
   }
 }
 

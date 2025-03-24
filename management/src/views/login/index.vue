@@ -34,12 +34,16 @@ export default {
   data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
-        password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
       },
       loading: false
     }
@@ -51,10 +55,11 @@ export default {
         if (valid) {
           this.loading = true
           await this.$store.dispatch('user/login', this.loginForm)
-          this.$router.push('/')
+          this.$router.push('/dashboard')
         }
       } catch (error) {
         console.error(error)
+        this.$message.error(error.message || '登录失败')
       } finally {
         this.loading = false
       }
@@ -77,11 +82,35 @@ export default {
   padding: 30px;
   background-color: #fff;
   border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   
   .title {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
+    font-size: 24px;
+  }
+
+  .el-input {
+    margin-bottom: 20px;
+    
+    /deep/ .el-input__inner {
+      padding-left: 40px;
+      height: 48px;
+      line-height: 48px;
+    }
+
+    /deep/ .el-input__prefix {
+      left: 10px;
+      font-size: 16px;
+      color: #909399;
+      line-height: 48px;
+    }
+  }
+
+  .el-button {
+    height: 48px;
+    font-size: 16px;
   }
 }
 </style> 
