@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getOrders(params) {
   return request({
-    url: '/admin/orders',
+    url: '/api/orders',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getOrders(params) {
 
 export function getOrder(id) {
   return request({
-    url: `/admin/orders/${id}`,
+    url: `/api/orders/${id}`,
     method: 'get'
   })
 }
 
 export function updateOrderStatus(id, status) {
   return request({
-    url: `/admin/orders/${id}/status`,
+    url: `/api/orders/${id}/status`,
     method: 'put',
     data: { status }
   })
@@ -25,7 +25,7 @@ export function updateOrderStatus(id, status) {
 
 export function handleRefund(id, approved) {
   return request({
-    url: `/admin/orders/${id}/refund`,
+    url: `/api/orders/${id}/refund`,
     method: 'post',
     data: { approved }
   })

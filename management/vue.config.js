@@ -6,11 +6,11 @@ module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/admin': {
+      '/api': {
         target: 'http://localhost:8081',
         changeOrigin: true,
         pathRewrite: {
-          '^/admin': ''
+          '^/api': ''
         }
       }
     }

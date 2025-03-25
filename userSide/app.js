@@ -4,7 +4,7 @@ App({
     // 展示本地存储能力
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+ 
 
 
     wx.login({
@@ -16,7 +16,7 @@ App({
             data: {
               code: res.code
             }, success: (res) => {
-            
+              wx.setStorageSync('info', res.data)
               console.log(res.data)
             },
           })

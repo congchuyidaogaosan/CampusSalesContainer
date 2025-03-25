@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getSalesStats(params) {
   return request({
-    url: '/admin/statistics/sales',
+    url: '/api/statistics/sales',
     method: 'get',
     params
   })
@@ -10,7 +10,7 @@ export function getSalesStats(params) {
 
 export function getOrderStats(params) {
   return request({
-    url: '/admin/statistics/orders',
+    url: '/api/statistics/orders',
     method: 'get',
     params
   })
@@ -18,7 +18,7 @@ export function getOrderStats(params) {
 
 export function getUserStats(params) {
   return request({
-    url: '/admin/statistics/users',
+    url: '/api/statistics/users',
     method: 'get',
     params
   })
@@ -26,7 +26,7 @@ export function getUserStats(params) {
 
 export function getProductStats(params) {
   return request({
-    url: '/admin/statistics/products',
+    url: '/api/statistics/products',
     method: 'get',
     params
   })

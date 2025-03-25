@@ -23,7 +23,8 @@ Page({
 
   async checkLoginStatus() {
     try {
-      const token = wx.getStorageSync('token')
+      const token = wx.getStorageSync('info')
+      console.log(token)
       if (token) {
         this.setData({ isLogin: true })
       }
@@ -33,14 +34,16 @@ Page({
   },
 
   async loadUserInfo() {
-    if (!this.data.isLogin) return
+    // if (!this.data.isLogin) return
     try {
-      const userInfo = await userAPI.getUserInfo()
+      // const userInfo = await userAPI.getUserInfo()
+      const token = wx.getStorageSync('info')
+      console.log(token)
       this.setData({
         userInfo,
-        balance: userInfo.balance,
-        points: userInfo.points,
-        orderStats: userInfo.orderStats
+        balance: token.userInfo.userName,
+        points: token.userInfo.userScore,
+        avatarUrl: token.userInfo.userAvatar
       })
     } catch (error) {
       wx.showToast({

@@ -1,8 +1,10 @@
 import request from '@/utils/request'
 
 export function login(data) {
+  console.log(data);
+  
   return request({
-    url: '/admin/login',
+    url: '/AdminLogin/login',
     method: 'post',
     data
   }).then(response => {
@@ -15,21 +17,21 @@ export function login(data) {
 
 export function getInfo() {
   return request({
-    url: '/admin/info',
+    url: '/info',
     method: 'get'
   })
 }
 
 export function logout() {
   return request({
-    url: '/admin/logout',
+    url: '/logout',
     method: 'post'
   })
 }
 
 export function getUserList(params) {
   return request({
-    url: '/admin/users',
+    url: '/users',
     method: 'get',
     params
   })
@@ -37,7 +39,7 @@ export function getUserList(params) {
 
 export function banUser(userId) {
   return request({
-    url: `/admin/users/${userId}/ban`,
+    url: `/users/${userId}/ban`,
     method: 'post'
   })
 } 

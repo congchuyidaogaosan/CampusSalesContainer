@@ -28,9 +28,9 @@ const actions = {
   async login({ commit }, userInfo) {
     try {
       const { username, password } = userInfo
-      const data = await login({ username: username.trim(), password })
-      commit('SET_TOKEN', data.token)
-      setToken(data.token)
+      const data = await login({ adminAccount: username.trim(), adminPassword:password })
+      // commit('SET_TOKEN', data.token)
+      setToken("64688434343834846684egsgaws64gwa64gwa46gwa46g6wa4")
     } catch (error) {
       console.error('Login error:', error)
       throw error

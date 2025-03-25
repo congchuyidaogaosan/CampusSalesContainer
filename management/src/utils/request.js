@@ -5,16 +5,16 @@ import { getToken } from '@/utils/auth'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API || '/admin',
+  baseURL:'/api',
   timeout: 5000
 })
 
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      config.headers['Authorization'] = 'Bearer ' + getToken()
-    }
+    // if (store.getters.token) {
+    //   config.headers['Authorization'] = 'Bearer ' + getToken()
+    // }
     return config
   },
   error => {

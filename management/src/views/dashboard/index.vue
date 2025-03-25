@@ -279,10 +279,21 @@ export default {
         color: #fff;
       }
 
-      &.sales { background-color: #409EFF; }
-      &.orders { background-color: #67C23A; }
-      &.users { background-color: #E6A23C; }
-      &.profit { background-color: #F56C6C; }
+      &.sales {
+        background-color: #409EFF;
+      }
+
+      &.orders {
+        background-color: #67C23A;
+      }
+
+      &.users {
+        background-color: #E6A23C;
+      }
+
+      &.profit {
+        background-color: #F56C6C;
+      }
     }
 
     .data-info {
@@ -362,4 +373,4 @@ export default {
     margin-top: 20px;
   }
 }
-</style> 
+</style>

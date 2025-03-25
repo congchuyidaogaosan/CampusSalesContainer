@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getMachines(params) {
   return request({
-    url: '/admin/machines',
+    url: '/api/machines',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getMachines(params) {
 
 export function getMachine(id) {
   return request({
-    url: `/admin/machines/${id}`,
+    url: `/api/machines/${id}`,
     method: 'get'
   })
 }
 
 export function createMachine(data) {
   return request({
-    url: '/admin/machines',
+    url: '/api/machines',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function createMachine(data) {
 
 export function updateMachine(id, data) {
   return request({
-    url: `/admin/machines/${id}`,
+    url: `/api/machines/${id}`,
     method: 'put',
     data
   })
@@ -33,21 +33,21 @@ export function updateMachine(id, data) {
 
 export function deleteMachine(id) {
   return request({
-    url: `/admin/machines/${id}`,
+    url: `/api/machines/${id}`,
     method: 'delete'
   })
 }
 
 export function getMachineStock(id) {
   return request({
-    url: `/admin/machines/${id}/stock`,
+    url: `/api/machines/${id}/stock`,
     method: 'get'
   })
 }
 
 export function controlMachine(id, action) {
   return request({
-    url: `/admin/machines/${id}/control`,
+    url: `/api/machines/${id}/control`,
     method: 'post',
     data: { action }
   })
