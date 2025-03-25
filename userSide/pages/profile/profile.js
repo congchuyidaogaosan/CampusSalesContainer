@@ -28,6 +28,15 @@ Page({
       if (token) {
         this.setData({ isLogin: true })
       }
+     
+      console.log(token.data.userInfo)
+      this.setData({
+        userInfo:token.data.userInfo,
+        balance: token.data.userInfo.userScore,
+        points: token.data.userInfo.userPhone,
+        avatarUrl: token.data.userInfo.userAvatar
+      })
+
     } catch (error) {
       console.error('检查登录状态失败:', error)
     }
@@ -37,14 +46,7 @@ Page({
     // if (!this.data.isLogin) return
     try {
       // const userInfo = await userAPI.getUserInfo()
-      const token = wx.getStorageSync('info')
-      console.log(token)
-      this.setData({
-        userInfo,
-        balance: token.userInfo.userName,
-        points: token.userInfo.userScore,
-        avatarUrl: token.userInfo.userAvatar
-      })
+ 
     } catch (error) {
       wx.showToast({
         title: error.message || '获取用户信息失败',
