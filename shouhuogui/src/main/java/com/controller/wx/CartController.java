@@ -19,15 +19,5 @@ public class CartController {
     private OrderProductService orderProductService;
 
 
-    @GetMapping("byUser/{id}")
-    public Result byUser(@PathVariable("id") Integer id) {
-
-        QueryWrapper<OrderProduct> queryWrapper = new QueryWrapper<>();
-
-        QueryWrapper<OrderProduct> eq = queryWrapper.eq("",);
-
-        orderProductService.list()
-
-
-    }
+    
 }
