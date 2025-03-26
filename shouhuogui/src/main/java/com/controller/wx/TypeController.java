@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/Type")
+@RequestMapping("/api/categories")
 @RestController
 public class TypeController {
 
@@ -40,13 +40,13 @@ public class TypeController {
     }
 
     @PostMapping("save")
-    public Result save(Type product) {
+    public Result save(@RequestBody Type product) {
         boolean save = typeService.save(product);
         return Result.ok();
     }
 
     @PostMapping("updateById")
-    public Result updateById(Type product) {
+    public Result updateById(@RequestBody Type product) {
         boolean update = typeService.updateById(product);
         return Result.ok();
     }

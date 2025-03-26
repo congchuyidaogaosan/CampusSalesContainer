@@ -4,12 +4,7 @@
     <div class="search-bar">
       <el-form :inline="true" :model="searchForm">
         <el-form-item>
-          <el-input
-            v-model="searchForm.orderNo"
-            placeholder="订单编号"
-            clearable
-            @keyup.enter.native="handleSearch"
-          />
+          <el-input v-model="searchForm.orderNo" placeholder="订单编号" clearable @keyup.enter.native="handleSearch" />
         </el-form-item>
         <el-form-item>
           <el-select v-model="searchForm.status" placeholder="订单状态" clearable>
@@ -20,13 +15,8 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-date-picker
-            v-model="searchForm.dateRange"
-            type="daterange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          />
+          <el-date-picker v-model="searchForm.dateRange" type="daterange" range-separator="至" start-placeholder="开始日期"
+            end-placeholder="结束日期" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
@@ -36,59 +26,36 @@
     </div>
 
     <!-- 订单列表 -->
-    <el-table
-      v-loading="loading"
-      :data="orders"
-      border
-      style="width: 100%"
-    >
-      <el-table-column prop="orderNo" label="订单编号" width="180" />
-      <el-table-column prop="createTime" label="下单时间" width="180" />
-      <el-table-column prop="userName" label="用户" />
+    <el-table v-loading="loading" :data="orders" border style="width: 100%">
+      <el-table-column prop="orderNumber" label="订单编号" width="180" />
+      <el-table-column prop="orderTime  " label="下单时间" width="180" />
+      <el-table-column prop="orderId" label="用户" />
       <el-table-column prop="amount" label="金额" width="120">
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           ¥{{ scope.row.amount.toFixed(2) }}
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column prop="status" label="状态" width="120">
         <template slot-scope="scope">
-          <el-tag :type="getOrderStatusType(scope.row.status)">
-            {{ getOrderStatusText(scope.row.status) }}
+          <el-tag :type="getOrderStatusType(scope.row.payStatus)">
+            {{ getOrderStatusText(scope.row.payStatus) }}
           </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200" fixed="right">
         <template slot-scope="scope">
           <el-button type="text" @click="handleDetail(scope.row)">详情</el-button>
-          <el-button 
-            v-if="scope.row.status === 'pending'" 
-            type="text" 
-            @click="handleCancel(scope.row)"
-          >取消</el-button>
-          <el-button
-            v-if="scope.row.refundStatus === 'pending'"
-            type="text"
-            @click="handleRefund(scope.row)"
-          >退款</el-button>
+          <el-button v-if="scope.row.status === 'pending'" type="text" @click="handleCancel(scope.row)">取消</el-button>
+          <el-button v-if="scope.row.refundStatus === 'pending'" type="text"
+            @click="handleRefund(scope.row)">退款</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 分页 -->
-    <div class="pagination-container">
-      <el-pagination
-        :current-page="page"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="limit"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+  
 
     <!-- 订单详情对话框 -->
-    <el-dialog title="订单详情" :visible.sync="detailVisible" width="600px">
+    <!-- <el-dialog title="订单详情" :visible.sync="detailVisible" width="600px">
       <div v-if="currentOrder" class="order-detail">
         <div class="detail-item">
           <span class="label">订单编号：</span>
@@ -130,10 +97,10 @@
           <span class="amount">¥{{ currentOrder.amount.toFixed(2) }}</span>
         </div>
       </div>
-    </el-dialog>
+    </el-dialog> -->
 
     <!-- 退款处理对话框 -->
-    <el-dialog title="退款处理" :visible.sync="refundVisible" width="400px">
+    <!-- <el-dialog title="退款处理" :visible.sync="refundVisible" width="400px">
       <div class="refund-form">
         <p>确认处理此退款申请吗？</p>
         <div class="refund-actions">
@@ -142,7 +109,7 @@
           <el-button type="danger" @click="confirmRefund(false)">拒绝退款</el-button>
         </div>
       </div>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -184,8 +151,8 @@ export default {
           startDate: start,
           endDate: end
         })
-        this.orders = res.data.items
-        this.total = res.data.total
+        this.orders = res.data
+
       } catch (error) {
         console.error(error)
       } finally {
@@ -295,7 +262,7 @@ export default {
   .order-detail {
     .detail-item {
       margin-bottom: 15px;
-      
+
       .label {
         display: inline-block;
         width: 100px;
@@ -305,7 +272,7 @@ export default {
       &.total {
         margin-top: 20px;
         text-align: right;
-        
+
         .amount {
           font-size: 18px;
           color: #F56C6C;
@@ -323,4 +290,4 @@ export default {
     }
   }
 }
-</style> 
+</style>

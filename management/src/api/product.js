@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getProducts(params) {
   return request({
-    url: '/Product',
+    url: '/api/Product',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getProducts(params) {
 
 export function getProduct(id) {
   return request({
-    url: `/Product/${id}`,
+    url: `/api/Product/${id}`,
     method: 'get'
   })
 }
 
 export function createProduct(data) {
   return request({
-    url: '/api/Product',
+    url: '/api/Product/save',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function createProduct(data) {
 
 export function updateProduct(id, data) {
   return request({
-    url: `/api/Product/updateById/${id}`,
+    url: `/api/Product/updateById`,
     method: 'post',
     data
   })
@@ -47,7 +47,7 @@ export function getCategories() {
 
 export function createCategory(data) {
   return request({
-    url: '/api/categories',
+    url: '/api/categories/save',
     method: 'post',
     data
   })
@@ -55,15 +55,15 @@ export function createCategory(data) {
 
 export function updateCategory(id, data) {
   return request({
-    url: `/api/categories/${id}`,
-    method: 'put',
+    url: `/api/categories/updateById`,
+    method: 'post',
     data
   })
 }
 
 export function deleteCategory(id) {
   return request({
-    url: `/api/categories/${id}`,
-    method: 'delete'
+    url: `/api/categories/deleteById/${id}`,
+    method: 'post'
   })
 } 

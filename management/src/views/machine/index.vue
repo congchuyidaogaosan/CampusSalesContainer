@@ -4,12 +4,7 @@
     <div class="operation-bar">
       <el-form :inline="true" :model="searchForm">
         <el-form-item>
-          <el-input
-            v-model="searchForm.keyword"
-            placeholder="售货柜编号/位置"
-            clearable
-            @keyup.enter.native="handleSearch"
-          />
+          <el-input v-model="searchForm.keyword" placeholder="售货柜编号/位置" clearable @keyup.enter.native="handleSearch" />
         </el-form-item>
         <el-form-item>
           <el-select v-model="searchForm.status" placeholder="运行状态" clearable>
@@ -29,17 +24,12 @@
     </div>
 
     <!-- 售货柜列表 -->
-    <el-table
-      v-loading="loading"
-      :data="machines"
-      border
-      style="width: 100%"
-    >
-      <el-table-column prop="id" label="售货柜ID" width="100" />
+    <el-table v-loading="loading" :data="machines" border style="width: 100%">
+      <el-table-column prop="machineId" label="售货柜ID" width="100" />
       <el-table-column prop="code" label="编号" width="120" />
-      <el-table-column prop="location" label="位置" />
-      <el-table-column prop="capacity" label="容量" width="100" />
-      <el-table-column prop="stockCount" label="当前库存" width="100" />
+      <el-table-column prop="machineLocation" label="位置" />
+      <!-- <el-table-column prop="capacity" label="容量" width="100" /> -->
+      <!-- <el-table-column prop="stockCount" label="当前库存" width="100" /> -->
       <el-table-column label="库存状态" width="100">
         <template slot-scope="scope">
           <el-tag :type="getStockStatusType(scope.row)">
@@ -49,8 +39,8 @@
       </el-table-column>
       <el-table-column prop="status" label="运行状态" width="100">
         <template slot-scope="scope">
-          <el-tag :type="getMachineStatusType(scope.row.status)">
-            {{ getMachineStatusText(scope.row.status) }}
+          <el-tag :type="getMachineStatusType(scope.row.machineStatus)">
+            {{ getMachineStatusText(scope.row.machineStatus) }}
           </el-tag>
         </template>
       </el-table-column>
@@ -66,25 +56,14 @@
 
     <!-- 分页 -->
     <div class="pagination-container">
-      <el-pagination
-        :current-page="page"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="limit"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination :current-page="page" :page-sizes="[10, 20, 50, 100]" :page-size="limit" :total="total"
+        layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange"
+        @current-change="handleCurrentChange" />
     </div>
 
     <!-- 售货柜表单对话框 -->
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px">
-      <el-form
-        ref="machineForm"
-        :model="machineForm"
-        :rules="machineRules"
-        label-width="100px"
-      >
+      <el-form ref="machineForm" :model="machineForm" :rules="machineRules" label-width="100px">
         <el-form-item label="编号" prop="code">
           <el-input v-model="machineForm.code" />
         </el-form-item>
@@ -117,12 +96,8 @@
           <el-table-column prop="stock" label="当前库存" width="120" />
           <el-table-column label="补货" width="200">
             <template slot-scope="scope">
-              <el-input-number
-                v-model="scope.row.replenish"
-                :min="0"
-                :max="currentMachine.capacity - getTotalStock()"
-                size="small"
-              />
+              <el-input-number v-model="scope.row.replenish" :min="0" :max="currentMachine.capacity - getTotalStock()"
+                size="small" />
             </template>
           </el-table-column>
         </el-table>
@@ -143,21 +118,12 @@
           </p>
         </div>
         <div class="control-actions">
-          <el-button
-            type="primary"
-            :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('open')"
-          >开门</el-button>
-          <el-button
-            type="warning"
-            :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('reset')"
-          >重启</el-button>
-          <el-button
-            type="danger"
-            :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('shutdown')"
-          >关机</el-button>
+          <el-button type="primary" :disabled="currentMachine.status === 'offline'"
+            @click="controlMachine('open')">开门</el-button>
+          <el-button type="warning" :disabled="currentMachine.status === 'offline'"
+            @click="controlMachine('reset')">重启</el-button>
+          <el-button type="danger" :disabled="currentMachine.status === 'offline'"
+            @click="controlMachine('shutdown')">关机</el-button>
         </div>
       </div>
     </el-dialog>
@@ -196,12 +162,7 @@ export default {
         capacity: 100,
         stockWarning: 10
       },
-      machineRules: {
-        code: [{ required: true, message: '请输入编号', trigger: 'blur' }],
-        location: [{ required: true, message: '请输入位置', trigger: 'blur' }],
-        capacity: [{ required: true, message: '请输入容量', trigger: 'blur' }],
-        stockWarning: [{ required: true, message: '请输入预警值', trigger: 'blur' }]
-      },
+      machineRules: {},
       stockDialogVisible: false,
       controlDialogVisible: false,
       currentMachine: null,
@@ -221,8 +182,8 @@ export default {
           keyword: this.searchForm.keyword,
           status: this.searchForm.status
         })
-        this.machines = res.data.items
-        this.total = res.data.total
+        this.machines = res.data
+
       } catch (error) {
         console.error(error)
       } finally {
@@ -314,7 +275,7 @@ export default {
             productId: item.id,
             quantity: item.replenish
           }))
-        
+
         if (replenishData.length === 0) {
           this.$message.warning('请输入补货数量')
           return
@@ -403,7 +364,7 @@ export default {
   .stock-manager {
     .stock-info {
       margin-bottom: 20px;
-      
+
       span {
         margin-right: 20px;
       }
@@ -429,4 +390,4 @@ export default {
     }
   }
 }
-</style> 
+</style>

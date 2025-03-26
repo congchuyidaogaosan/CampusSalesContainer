@@ -27,15 +27,17 @@ public class VendingMachineController {
     }
 
 
+
+
     @PostMapping("save")
-    public Result save(VendingMachine product) {
+    public Result save(@RequestBody VendingMachine product) {
 
         boolean save = productService.save(product);
         return Result.ok();
     }
 
     @PostMapping("updateById")
-    public Result updateById(VendingMachine product) {
+    public Result updateById(@RequestBody VendingMachine product) {
 
         boolean update = productService.updateById(product);
         return Result.ok();

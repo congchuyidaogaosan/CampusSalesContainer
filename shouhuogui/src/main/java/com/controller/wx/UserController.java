@@ -1,8 +1,10 @@
 package com.controller.wx;
 
 import com.admin.Result;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.domain.Product;
 import com.domain.User;
+import com.domain.query.FatherQuery;
 import com.service.ProductService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,29 @@ public class UserController {
     private UserService productService;
 
     @GetMapping()
-    public Result list() {
+    public Result list(FatherQuery fatherQuery) {
 
-        List<User> list = productService.list();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (fatherQuery.getKeyword()!=null && !fatherQuery.getKeyword().equals("")){
+            queryWrapper.eq("user_nickname",fatherQuery.getKeyword());
+        }
+
+
+
+        List<User> list = productService.list(queryWrapper);
         return Result.ok(list);
     }
 
 
     @PostMapping("save")
-    public Result save(User product) {
+    public Result save(@RequestBody User product) {
 
         boolean save = productService.save(product);
         return Result.ok();
     }
 
     @PostMapping("updateById")
-    public Result updateById(User product) {
+    public Result updateById(@RequestBody User product) {
 
         boolean update = productService.updateById(product);
         return Result.ok();

@@ -31,7 +31,7 @@ export function logout() {
 
 export function getUserList(params) {
   return request({
-    url: '/users',
+    url: '/api/User',
     method: 'get',
     params
   })
@@ -39,7 +39,7 @@ export function getUserList(params) {
 
 export function banUser(userId) {
   return request({
-    url: `/users/${userId}/ban`,
+    url: `/api/User/${userId}/ban`,
     method: 'post'
   })
 } 

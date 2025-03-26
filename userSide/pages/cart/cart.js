@@ -28,15 +28,16 @@ Page({
 
   onLoad() {
     this.loadCartItems()
-    this.calculateTotal()
+    // this.calculateTotal()
   },
 
   async loadCartItems() {
     try {
       wx.showLoading({ title: '加载中' })
-      const cartItems = await cartAPI.getCartItems()
+      // const cartItems = await cartAPI.getCartItems()
+      let cartItems = {};
       this.setData({ cartItems })
-      this.calculateTotal()
+      // this.calculateTotal()
     } catch (error) {
       wx.showToast({
         title: error.message || '加载失败',

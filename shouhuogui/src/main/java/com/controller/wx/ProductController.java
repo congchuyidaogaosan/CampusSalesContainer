@@ -1,7 +1,9 @@
 package com.controller.wx;
 
 import com.admin.Result;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.domain.Product;
+import com.domain.query.FatherQuery;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,17 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping()
-    public Result list() {
+    public Result list(FatherQuery fatherQuery) {
+        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
+        if (fatherQuery.getCategoryId()!=null && !fatherQuery.getCategoryId().equals("")){
+            queryWrapper.eq("product_category",fatherQuery.getCategoryId());
+        }
 
-        List<Product> list = productService.list();
+        if (fatherQuery.getKeyword()!=null && !fatherQuery.getKeyword().equals("")){
+            queryWrapper.like("product_name",fatherQuery.getKeyword());
+        }
+
+        List<Product> list = productService.list(queryWrapper);
         return Result.ok(list);
     }
 
@@ -30,14 +40,14 @@ public class ProductController {
         return Result.ok(byId);
     }
     @PostMapping("save")
-    public Result save(Product product) {
+    public Result save(@RequestBody Product product) {
 
         boolean save = productService.save(product);
         return Result.ok();
     }
 
     @PostMapping("updateById")
-    public Result updateById(Product product) {
+    public Result updateById(@RequestBody Product product) {
 
         boolean update = productService.updateById(product);
         return Result.ok();

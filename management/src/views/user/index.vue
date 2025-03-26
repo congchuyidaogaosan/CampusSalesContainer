@@ -4,19 +4,9 @@
     <div class="search-bar">
       <el-form :inline="true" :model="searchForm">
         <el-form-item>
-          <el-input
-            v-model="searchForm.keyword"
-            placeholder="用户昵称/手机号"
-            clearable
-            @keyup.enter.native="handleSearch"
-          />
+          <el-input v-model="searchForm.keyword" placeholder="用户昵称/手机号" clearable @keyup.enter.native="handleSearch" />
         </el-form-item>
-        <el-form-item>
-          <el-select v-model="searchForm.status" placeholder="用户状态" clearable>
-            <el-option label="正常" value="normal" />
-            <el-option label="已封禁" value="banned" />
-          </el-select>
-        </el-form-item>
+        
         <el-form-item>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
           <el-button @click="resetSearch">重置</el-button>
@@ -25,56 +15,27 @@
     </div>
 
     <!-- 用户列表 -->
-    <el-table
-      v-loading="loading"
-      :data="users"
-      border
-      style="width: 100%"
-    >
-      <el-table-column prop="id" label="用户ID" width="80" />
+    <el-table v-loading="loading" :data="users" border style="width: 100%">
+      <el-table-column prop="openId" label="用户ID" width="80" />
       <el-table-column label="头像" width="80">
         <template slot-scope="scope">
-          <el-avatar :src="scope.row.avatar" />
+          <el-avatar :src="scope.row.userAvatar" />
         </template>
       </el-table-column>
-      <el-table-column prop="nickname" label="昵称" />
-      <el-table-column prop="phone" label="手机号" width="120" />
-      <el-table-column prop="registerTime" label="注册时间" width="180" />
-      <el-table-column prop="lastLoginTime" label="最后登录" width="180" />
-      <el-table-column label="状态" width="100">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status === 'normal' ? 'success' : 'danger'">
-            {{ scope.row.status === 'normal' ? '正常' : '已封禁' }}
-          </el-tag>
-        </template>
-      </el-table-column>
+      <el-table-column prop="userNickname" label="昵称" />
+      <el-table-column prop="userPhone" label="手机号" width="120" />
+      <el-table-column prop="userScore" label="余额" width="180" />
+     
+     
       <el-table-column label="操作" width="150" fixed="right">
         <template slot-scope="scope">
           <el-button type="text" @click="handleDetail(scope.row)">详情</el-button>
-          <el-button 
-            type="text" 
-            :class="{ 'danger': scope.row.status === 'normal' }"
-            @click="handleBan(scope.row)"
-          >
-            {{ scope.row.status === 'normal' ? '封禁' : '解封' }}
-          </el-button>
+           
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 分页 -->
-    <div class="pagination-container">
-      <el-pagination
-        :current-page="page"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="limit"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
-    </div>
-
+     
     <!-- 用户详情对话框 -->
     <el-dialog title="用户详情" :visible.sync="detailVisible" width="600px">
       <div v-if="currentUser" class="user-detail">
@@ -142,8 +103,8 @@ export default {
           keyword: this.searchForm.keyword,
           status: this.searchForm.status
         })
-        this.users = res.data.items
-        this.total = res.data.total
+        this.users = res.data
+      
       } catch (error) {
         console.error(error)
       } finally {
@@ -226,7 +187,7 @@ export default {
     .detail-list {
       .detail-item {
         margin-bottom: 15px;
-        
+
         .label {
           display: inline-block;
           width: 100px;
@@ -240,4 +201,4 @@ export default {
     color: #F56C6C;
   }
 }
-</style> 
+</style>
