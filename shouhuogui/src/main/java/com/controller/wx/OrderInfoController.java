@@ -26,6 +26,25 @@ public class OrderInfoController {
         return Result.ok(list);
     }
 
+    @GetMapping("zhifu/{orderid}")
+    public Result zhifu(@PathVariable("orderid") Integer orderid) {
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("orderid", orderid);
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setPayStatus("已支付");
+        boolean update = orderInfoService.update(orderInfo, queryWrapper);
+        return Result.ok();
+    }
+
+
+    @GetMapping("byUser/{userID}")
+    public Result byUser(@PathVariable("userID") Integer userID) {
+
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",userID);
+        List<OrderInfo> list = orderInfoService.list(queryWrapper);
+        return Result.ok(list);
+    }
 
     @PostMapping("save")
     public Result save(@RequestBody OrderInfo orderInfo) {
