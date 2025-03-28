@@ -43,9 +43,19 @@ Page({
   },
 
   async addToCart() {
+
     try {
       const { product, quantity } = this.data
-      await cartAPI.addToCart(product.id, quantity)
+
+      let info = wx.getStorageSync('info')
+
+      console.log(info.data.userInfo)
+      let date = {
+        ProductId: product.productId,
+        Num: quantity,
+        UserId: info.data.userInfo.userId
+      }
+      await cartAPI.addToCart(date)
       wx.showToast({
         title: '已加入购物车',
         icon: 'success'

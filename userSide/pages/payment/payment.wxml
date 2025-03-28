@@ -6,12 +6,8 @@
 
   <!-- 商品列表 -->
   <view class="order-items">
-    <view 
-      class="order-item"
-      wx:for="{{orderInfo.items}}"
-      wx:key="id"
-    >
-      <image src="{{item.imageUrl}}" mode="aspectFill"/>
+    <view class="order-item" wx:for="{{orderInfo.items}}" wx:key="id">
+      <image src="{{item.imageUrl}}" mode="aspectFill" />
       <view class="item-info">
         <text class="item-name">{{item.name}}</text>
         <text class="item-price">¥{{item.price}}</text>
@@ -27,8 +23,5 @@
   </view>
 
   <!-- 支付按钮 -->
-  <button 
-    class="pay-btn"
-    bindtap="onSubmit"
-  >确认支付</button>
-</view> 
+  <button class="pay-btn" bindtap="onSubmit">确认支付</button>
+</view>

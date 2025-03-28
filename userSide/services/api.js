@@ -98,12 +98,12 @@ const userAPI = {
 const productAPI = {
   // 获取分类列表
   getCategories: () => {
-    return request('Type')
+    return request('categories')
   },
 
   // 获取分类商品
   getCategoryProducts: (categoryId) => {
-    return request(`/Type/${categoryId}/products`)
+    return request(`/categories/${categoryId}/products`)
   },
 
   // 获取商品详情
@@ -123,10 +123,10 @@ const productAPI = {
 // 订单相关接口
 const orderAPI = {
   // 创建订单
-  createOrder: (orderData) => {
-    return request('/orders', {
+  createOrder: (userId) => {
+    return request('/cart/order/'+userId, {
       method: 'POST',
-      data: orderData
+     
     })
   },
 
@@ -154,17 +154,29 @@ const orderAPI = {
 // 购物车相关接口
 const cartAPI = {
   // 获取购物车列表
-  getCartItems: () => {
-    return request('/cart')
+  getCartItems: (id) => {
+    return request('/cart/byId/'+id)
   },
 
   // 添加到购物车
-  addToCart: (productId, quantity) => {
-    return request('/cart/add', {
+  addToCart: (date) => {
+    return request('cart/add', {
       method: 'POST',
-      data: { productId, quantity }
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: date
     })
   },
+
+  // addToCart: () => {
+  //   return request('categories/save', {
+  //     method: 'POST',
+  //     data: { name: "", type: "1" }
+  //   })
+  // },
+
+
 
   // 更新购物车商品数量
   updateCartItem: (itemId, quantity) => {
@@ -175,9 +187,9 @@ const cartAPI = {
   },
 
   // 删除购物车商品
-  removeCartItem: (itemId) => {
-    return request(`/cart/${itemId}`, {
-      method: 'DELETE'
+  removeCartItem: (itemId,uid) => {
+    return request(`/cart/del/${itemId}/${uid}`, {
+      method: 'post'
     })
   }
 }

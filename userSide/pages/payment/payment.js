@@ -7,22 +7,23 @@ Page({
   },
 
   onLoad(options) {
-    const { productId, quantity } = options
-    if (productId && quantity) {
-      this.createOrder(productId, quantity)
-    }
+    let info = wx.getStorageSync('info')
+   
+
+      this.createOrder(info.data.userInfo.userId)
+
   },
 
-  async createOrder(productId, quantity) {
+  async createOrder(userId) {
     try {
       wx.showLoading({ title: '创建订单中' })
-      const orderData = {
-        items: [{
-          productId,
-          quantity: parseInt(quantity)
-        }]
-      }
-      const order = await orderAPI.createOrder(orderData)
+      // const orderData = {
+      //   items: [{
+      //     productId,
+      //     quantity: parseInt(quantity)
+      //   }]
+      // }
+      const order = await orderAPI.createOrder(userId)
       this.setData({ 
         orderInfo: order,
         loading: false

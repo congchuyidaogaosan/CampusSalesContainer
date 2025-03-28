@@ -3,40 +3,29 @@ const { cartAPI } = require('../../services/api')
 Page({
   data: {
     cartItems: [
-      {
-        id: 1,
-        productId: 1,
-        name: '可口可乐',
-        price: 3.00,
-        imageUrl: 'https://example.com/cola.jpg',
-        quantity: 2,
-        selected: true
-      },
-      {
-        id: 2,
-        productId: 2,
-        name: '农夫山泉',
-        price: 2.00,
-        imageUrl: 'https://example.com/water.jpg',
-        quantity: 1,
-        selected: true
-      }
     ],
     allSelected: true,
     totalPrice: 0
   },
 
-  onLoad() {
+  onShow: function () {
     this.loadCartItems()
     // this.calculateTotal()
   },
 
   async loadCartItems() {
     try {
+      let info = wx.getStorageSync('info')
+
       wx.showLoading({ title: '加载中' })
-      // const cartItems = await cartAPI.getCartItems()
-      let cartItems = {};
-      this.setData({ cartItems })
+      const cartItems = await cartAPI.getCartItems(info.data.userInfo.userId)
+      const cartItems1= cartItems.data;
+      if(cartItems1==null){
+      }else{
+        this.setData({cartItems: cartItems1})
+      }
+
+      console.log(this.data.cartItems)
       // this.calculateTotal()
     } catch (error) {
       wx.showToast({
@@ -51,7 +40,8 @@ Page({
   onItemSelect(e) {
     const { id } = e.currentTarget.dataset
     const { cartItems } = this.data
-    const index = cartItems.findIndex(item => item.id === id)
+    console.log(cartItems)
+    const index = cartItems.findIndex(item => item.ProductId === id)
     cartItems[index].selected = !cartItems[index].selected
 
     const allSelected = cartItems.every(item => item.selected)
@@ -104,12 +94,15 @@ Page({
 
   async onDelete(e) {
     try {
+      let info = wx.getStorageSync('info')
+     
       const { id } = e.currentTarget.dataset
-      await cartAPI.removeCartItem(id)
-      const { cartItems } = this.data
-      const newCartItems = cartItems.filter(item => item.id !== id)
-      this.setData({ cartItems: newCartItems })
-      this.calculateTotal()
+      await cartAPI.removeCartItem(id, info.data.userInfo.userId)
+
+      this.loadCartItems()
+
+
+      // this.calculateTotal()
     } catch (error) {
       wx.showToast({
         title: error.message || '删除失败',
@@ -122,7 +115,7 @@ Page({
     const { cartItems } = this.data
     const totalPrice = cartItems
       .filter(item => item.selected)
-      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .reduce((total, item) => total + item.product.productPrice * item.Num, 0)
 
     this.setData({ totalPrice })
   },
