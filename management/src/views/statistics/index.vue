@@ -40,7 +40,7 @@
     </el-row>
 
     <!-- 商品销售排行 -->
-    <el-row :gutter="20" class="chart-row">
+    <!-- <el-row :gutter="20" class="chart-row">
       <el-col :span="12">
         <el-card>
           <div slot="header">
@@ -69,10 +69,10 @@
           <div class="chart-container" ref="pieChart"></div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     <!-- 用户分析 -->
-    <el-row :gutter="20" class="chart-row">
+    <!-- <el-row :gutter="20" class="chart-row">
       <el-col :span="12">
         <el-card class="chart-card">
           <div slot="header">
@@ -89,7 +89,7 @@
           <div class="chart-container" ref="userActivityChart"></div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 

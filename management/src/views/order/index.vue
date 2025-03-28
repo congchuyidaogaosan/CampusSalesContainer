@@ -28,7 +28,7 @@
     <!-- 订单列表 -->
     <el-table v-loading="loading" :data="orders" border style="width: 100%">
       <el-table-column prop="orderNumber" label="订单编号" width="180" />
-      <el-table-column prop="orderTime  " label="下单时间" width="180" />
+      <el-table-column prop="orderTime" label="下单时间" width="180" />
       <el-table-column prop="orderId" label="用户" />
       <el-table-column prop="amount" label="金额" width="120">
         <!-- <template slot-scope="scope">
