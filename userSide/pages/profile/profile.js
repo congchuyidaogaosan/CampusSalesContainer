@@ -96,6 +96,36 @@ Page({
     }
   },
 
+  // 头像和昵称相关方法
+  userInput(e) {
+    console.log(e);
+    // 更改为 e.target.value 来获取输入框的值
+    let nickname = e.target.value;
+    this.setData({
+      userInfo: {
+       ...this.data.userInfo,
+        nickname: nickname
+      }
+    });
+    // 更改本地用户信息
+    getApp().globalData.userInfo = this.data.userInfo;
+    console.log(getApp().globalData.userInfo);
+  },
+
+  onChooseAvatar(e) {
+    this.setData({
+      // 更新头像 userInfo.avatarUrl
+      userInfo: {
+        ...this.data.userInfo,
+        avatarUrl: e.detail.avatarUrl
+      }
+    });
+    // 更改本地用户信息
+    getApp().globalData.userInfo = this.data.userInfo
+    console.log(getApp().globalData.userInfo);
+
+  },
+
   navigateToOrders(e) {
     const { type } = e.currentTarget.dataset
     wx.navigateTo({

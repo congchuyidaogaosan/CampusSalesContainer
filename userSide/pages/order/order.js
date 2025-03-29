@@ -2,8 +2,14 @@ const { orderAPI } = require('../../services/api')
 
 Page({
   data: {
-    orders: [], // 改为数组存储订单列表
-    loading: true
+    orders: [],
+    loading: true,
+    // 添加订单状态常量
+    STATUS: {
+      UNPAID: '未支付',
+      UNDELIVERED: '未取货',
+      COMPLETED: '已完成'
+    }
   },
 
   onLoad(options) {
@@ -25,7 +31,12 @@ Page({
       const formattedOrders = response.data.map(order => ({
         ...order,
         orderTime: this.formatTime(order.orderTime),
-        statusClass: this.getStatusClass(order.payStatus)
+        statusClass: this.getStatusClass(order.payStatus),
+        statusText: this.getStatusText(order.payStatus),
+        // 根据状态显示不同的操作按钮
+        showPay: order.payStatus === this.data.STATUS.UNPAID,
+        showCancel: order.payStatus === this.data.STATUS.UNPAID,
+        showPickup: order.payStatus === this.data.STATUS.UNDELIVERED
       }))
 
       this.setData({ 
@@ -49,15 +60,30 @@ Page({
   },
 
   getStatusClass(status) {
+    const { STATUS } = this.data
     switch (status) {
-      case '未支付':
+      case STATUS.UNPAID:
         return 'unpaid'
-      case '已支付':
-        return 'paid'
-      case '已完成':
+      case STATUS.UNDELIVERED:
+        return 'undelivered'
+      case STATUS.COMPLETED:
         return 'completed'
       default:
         return ''
+    }
+  },
+
+  getStatusText(status) {
+    const { STATUS } = this.data
+    switch (status) {
+      case STATUS.UNPAID:
+        return '待支付'
+      case STATUS.UNDELIVERED:
+        return '待取货'
+      case STATUS.COMPLETED:
+        return '已完成'
+      default:
+        return status
     }
   },
 
@@ -79,9 +105,28 @@ Page({
   },
 
   repurchase(e) {
+    console.log(e);
     const orderId = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/payment/payment?orderId=${orderId}`
     })
+  },
+
+  // 新增取货方法
+  async pickupOrder(e) {
+    const orderId = e.currentTarget.dataset.id
+    try {
+      await orderAPI.pickupOrder(orderId)
+      wx.showToast({
+        title: '取货成功',
+        icon: 'success'
+      })
+      this.loadOrderList() // 重新加载订单列表
+    } catch (error) {
+      wx.showToast({
+        title: error.message || '取货失败',
+        icon: 'none'
+      })
+    }
   }
 }) 

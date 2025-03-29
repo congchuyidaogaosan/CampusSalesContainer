@@ -1,24 +1,23 @@
 <view class="container">
   <!-- 用户信息卡片 -->
-  <view class="user-card">
+  <view class="user-header">
     <view class="user-info">
-      <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" />
-      <view class="info-right">
-        <text class="nickname">{{userInfo.userNickname}}</text>
-        <view class="account-info">
-          <view class="balance">
-            <text class="label">余额</text>
-            <text class="value">¥{{balance}}</text>
-          </view>
-          <view class="points">
-            <text class="label">联系电话</text>
-            <text class="value">{{points}}</text>
-          </view>
-        </view>
-      </view>
+      <button class="avatar-wrapper" 
+              open-type="chooseAvatar" 
+              bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" 
+               src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" 
+               mode="aspectFill"/>
+      </button>
+      <!-- 拿不到值 -->
+      
+      <input type="nickname" 
+             class="nickname-input" 
+             placeholder="请输入昵称" 
+             bindblur="userInput" 
+             :value="{{userInfo.nickname}}" />
     </view>
   </view>
-
   <!-- 订单状态 -->
   <view class="order-section">
     <view class="section-header">

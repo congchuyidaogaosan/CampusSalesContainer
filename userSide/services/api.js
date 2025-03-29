@@ -140,12 +140,33 @@ const orderAPI = {
 
   // 获取订单详情
   getOrderDetail: (orderId) => {
-    return request(`/orders/${orderId}`)
+    return request(`/orders/find/${orderId}`)
   },
 
   // 取消订单
   cancelOrder: (orderId) => {
     return request(`/orders/${orderId}/cancel`, {
+      method: 'POST'
+    })
+  },
+
+  // 获取附近售货柜
+  getNearbyMachines: () => {
+    return request('/VendingMachine', {
+      method: 'GET'
+    })
+  },
+
+  // 更新订单的售货柜
+  updateOrderMachine: (orderId, machineId) => {
+    return request(`/orders/${orderId}/machine/${machineId}`, {
+      method: 'POST'
+    })
+  },
+
+  // 取货
+  pickupOrder: (orderId) => {
+    return request(`/orders/${orderId}/pickup`, {
       method: 'POST'
     })
   }
@@ -197,8 +218,8 @@ const cartAPI = {
 // 支付相关接口
 const paymentAPI = {
   // 创建支付订单
-  createPayment: (orderid) => {
-    return request(`/orders/zhifu/${orderid}`, {
+  createPayment: (orderid,machineid) => {
+    return request(`/orders/zhifu/${orderid}/${machineid}`, {
       method: 'GET',
     })
   }

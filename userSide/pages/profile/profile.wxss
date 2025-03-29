@@ -4,74 +4,74 @@ page {
 }
 
 .container {
-  background: #f7f7f7;
+  background: #fff;
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
   display: block;
 }
 
-.user-card {
-  background: #fff;
-  padding: 30rpx;
-  margin-bottom: 20rpx;
+/* 用户信息头部 */
+.user-header {
   width: 100%;
   box-sizing: border-box;
+  background: #fff;
+  padding: 40rpx 30rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
 }
 
 .user-info {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
+/* 头像按钮样式 */
+.avatar-wrapper {
+  padding: 0;
+  margin: 0;
+  width: 140rpx;
+  height: 140rpx;
+  background: none;
+  border: none;
+}
+
+.avatar-wrapper::after {
+  border: none;
+}
+
+/* 头像样式 */
 .avatar {
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 60rpx;
-  margin-right: 30rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(0, 0, 0, 0.1);
 }
 
-.info-right {
+/* 昵称输入框样式 */
+.nickname-input {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.nickname {
-  font-size: 32rpx;
-  font-weight: bold;
-  margin-bottom: 20rpx;
-}
-
-.account-info {
-  display: flex;
-  width: 100%;
-}
-
-.balance, .points {
-  margin-right: 40rpx;
-  display: flex;
-  align-items: center;
-}
-
-.label {
-  font-size: 24rpx;
-  color: #999;
-  margin-right: 10rpx;
-}
-
-.value {
-  font-size: 28rpx;
+  margin-left: 30rpx;
+  padding: 10rpx 0;
+  font-size: 36rpx;
   color: #333;
+  font-weight: 500;
+  background: transparent;
 }
 
+.nickname-input::placeholder {
+  color: #999;
+}
+
+/* 订单部分样式 */
 .order-section {
-  background: #fff;
+  border-radius: 12rpx;
   padding: 30rpx;
-  margin-bottom: 20rpx;
-  width: 100%;
-  box-sizing: border-box;
+  margin: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
 }
 
 .section-header {
@@ -79,43 +79,44 @@ page {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30rpx;
-  width: 100%;
 }
 
 .title {
   font-size: 32rpx;
   font-weight: bold;
+  color: #333;
 }
 
 .view-all {
   font-size: 28rpx;
-  color: #999;
+  color: #666;
   display: flex;
   align-items: center;
 }
 
 .arrow {
-  margin-left: 10rpx;
+  margin-left: 8rpx;
 }
 
+/* 订单状态图标 */
 .order-stats {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  padding: 10rpx 0;
 }
 
 .stat-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  flex: 1;
+  padding: 10rpx;
 }
 
 .stat-item image {
-  width: 60rpx;
-  height: 60rpx;
-  margin-bottom: 10rpx;
+  width: 56rpx;
+  height: 56rpx;
+  margin-bottom: 12rpx;
 }
 
 .stat-item text {
@@ -125,30 +126,28 @@ page {
 
 .badge {
   position: absolute;
-  top: -10rpx;
-  right: -10rpx;
-  background: #e4393c;
+  top: -6rpx;
+  right: -6rpx;
+  background: #ff4d4f;
   color: #fff;
-  font-size: 24rpx;
-  padding: 4rpx 12rpx;
+  font-size: 22rpx;
+  padding: 2rpx 10rpx;
   border-radius: 20rpx;
-  min-width: 32rpx;
+  min-width: 28rpx;
   text-align: center;
 }
 
+/* 功能列表样式 */
 .function-list {
-  background: #fff;
-  width: 100%;
-  box-sizing: border-box;
+  border-radius: 12rpx;
+  margin: 20rpx;
 }
 
 .function-item {
   display: flex;
   align-items: center;
   padding: 30rpx;
-  border-bottom: 1rpx solid #eee;
-  width: 100%;
-  box-sizing: border-box;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
 }
 
 .function-item:last-child {
@@ -156,30 +155,37 @@ page {
 }
 
 .function-item image {
-  width: 40rpx;
-  height: 40rpx;
+  width: 44rpx;
+  height: 44rpx;
   margin-right: 20rpx;
 }
 
 .function-item text {
-  font-size: 28rpx;
+  font-size: 30rpx;
   color: #333;
 }
 
 .function-item .arrow {
   margin-left: auto;
   color: #999;
+  font-size: 24rpx;
 }
 
+/* 登录按钮样式 */
 .login-btn {
-  width: 90%;
+  width: calc(100% - 40rpx);
   height: 88rpx;
   line-height: 88rpx;
-  background: #e4393c;
+  background: #ff9a9e;
   color: #fff;
   border-radius: 44rpx;
   font-size: 32rpx;
-  margin-top: 40rpx;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 40rpx 20rpx;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(255, 154, 158, 0.3);
+}
+
+.login-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 6rpx rgba(255, 154, 158, 0.2);
 } 

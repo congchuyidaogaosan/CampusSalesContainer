@@ -77,6 +77,12 @@ public class OrderInfoController {
         return Result.ok();
     }
 
+    @GetMapping("/find/{id}")
+    public Result find(@PathVariable("id")Integer id){
+        OrderInfo byId = orderInfoService.getById(id);
+        return Result.ok(byId);
+    }
+
     @PostMapping("updateById")
     public Result updateById(@RequestBody OrderInfo orderInfo) {
         boolean update = orderInfoService.updateById(orderInfo);
