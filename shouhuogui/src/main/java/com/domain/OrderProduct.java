@@ -38,6 +38,9 @@ public class OrderProduct implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    @TableField(exist = false)
+    private Product product;
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {

@@ -3,8 +3,12 @@ package com.controller.wx;
 import com.admin.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.domain.OrderInfo;
+import com.domain.OrderProduct;
+import com.domain.Product;
 import com.domain.Type;
 import com.service.OrderInfoService;
+import com.service.OrderProductService;
+import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,11 @@ public class OrderInfoController {
     @Autowired
     private OrderInfoService orderInfoService;
 
+    @Autowired
+    private OrderProductService orderProductService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping()
     public Result list() {
@@ -34,6 +43,22 @@ public class OrderInfoController {
         orderInfo.setPayStatus("已支付");
         boolean update = orderInfoService.update(orderInfo, queryWrapper);
         return Result.ok();
+    }
+
+    @GetMapping("{orderid}")
+    public Result orderDetail(@PathVariable("orderid")Integer orderid){
+
+        QueryWrapper<OrderProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id",orderid);
+
+        List<OrderProduct> list = orderProductService.list(queryWrapper);
+
+        for (OrderProduct orderProduct:list){
+            Product byId = productService.getById(orderProduct.getId());
+            orderProduct.setProduct(byId);
+        }
+
+        return Result.ok(list);
     }
 
 
