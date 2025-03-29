@@ -29,7 +29,7 @@ public class OrderInfoController {
     @GetMapping("zhifu/{orderid}")
     public Result zhifu(@PathVariable("orderid") Integer orderid) {
         QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("orderid", orderid);
+        queryWrapper.eq("user_id", orderid);
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setPayStatus("已支付");
         boolean update = orderInfoService.update(orderInfo, queryWrapper);
