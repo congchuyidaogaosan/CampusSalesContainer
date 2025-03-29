@@ -131,10 +131,10 @@ const orderAPI = {
   },
 
   // 获取订单列表
-  getOrders: (status) => {
-    return request('/orders', {
+  getOrders: (userId) => {
+    return request('/orders/byUser/'+userId, {
       method: 'GET',
-      data: { status }
+     
     })
   },
 
@@ -197,10 +197,9 @@ const cartAPI = {
 // 支付相关接口
 const paymentAPI = {
   // 创建支付订单
-  createPayment: (orderId) => {
-    return request('/payments', {
-      method: 'POST',
-      data: { orderId }
+  createPayment: (orderid) => {
+    return request(`/orders/zhifu/${orderid}`, {
+      method: 'GET',
     })
   }
 }

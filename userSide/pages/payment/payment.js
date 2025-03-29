@@ -2,30 +2,40 @@ const { orderAPI, paymentAPI } = require('../../services/api')
 
 Page({
   data: {
-    orderInfo: null,
+    orderInfo: {
+      orderId: '',
+      orderNumber: '',
+      orderTime: '',
+      orderAmount: 0,
+      items: []
+    },
     loading: true
   },
 
   onLoad(options) {
     let info = wx.getStorageSync('info')
-   
-
+    if (info) {
       this.createOrder(info.data.userInfo.userId)
-
+    }
   },
 
   async createOrder(userId) {
     try {
       wx.showLoading({ title: '创建订单中' })
-      // const orderData = {
-      //   items: [{
-      //     productId,
-      //     quantity: parseInt(quantity)
-      //   }]
-      // }
       const order = await orderAPI.createOrder(userId)
+      console.log('订单数据:', order)
+      
+      // 格式化订单数据
+      const formattedOrder = {
+        orderId: order.data.orderId,
+        orderNumber: order.data.orderNumber,
+        orderTime: this.formatTime(order.data.orderTime),
+        orderAmount: order.data.orderAmount || 0,
+        items: order.data.items || []
+      }
+
       this.setData({ 
-        orderInfo: order,
+        orderInfo: formattedOrder,
         loading: false
       })
     } catch (error) {
@@ -41,21 +51,21 @@ Page({
     }
   },
 
+  formatTime(timestamp) {
+    if (!timestamp) return ''
+    const date = new Date(parseInt(timestamp))
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+  },
+
   async onSubmit() {
     const { orderInfo } = this.data
     try {
       wx.showLoading({ title: '支付中' })
-      const paymentResult = await paymentAPI.createPayment(orderInfo.id)
+      console.log(orderInfo);
+      // 调用支付接口
+      const paymentResult = await paymentAPI.createPayment(orderInfo.orderId)
       
-      // 调用微信支付
-      await new Promise((resolve, reject) => {
-        wx.requestPayment({
-          ...paymentResult,
-          success: resolve,
-          fail: reject
-        })
-      })
-
+      // 模拟支付成功
       wx.showToast({
         title: '支付成功',
         icon: 'success'
@@ -63,7 +73,7 @@ Page({
 
       setTimeout(() => {
         wx.redirectTo({
-          url: `/pages/order/order?id=${orderInfo.id}`
+          url: `/pages/order/order?id=${orderInfo.orderId}`
         })
       }, 1500)
 

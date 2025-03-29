@@ -1,18 +1,16 @@
 import request from '@/utils/request'
 
-export function getSalesStats(params) {
+export function getSalesStats() {
   return request({
-    url: '/api/statistics/sales',
+    url: '/eacher/orderpriceeacher',
     method: 'get',
-    params
   })
 }
 
-export function getOrderStats(params) {
+export function getOrderStats() {
   return request({
-    url: '/api/statistics/orders',
+    url: '/eacher/ordereacher',
     method: 'get',
-    params
   })
 }
 
