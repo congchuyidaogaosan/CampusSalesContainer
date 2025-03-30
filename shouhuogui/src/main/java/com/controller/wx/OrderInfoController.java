@@ -38,7 +38,7 @@ public class OrderInfoController {
     @GetMapping("zhifu/{orderid}")
     public Result zhifu(@PathVariable("orderid") Integer orderid) {
         QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", orderid);
+        queryWrapper.eq("order_id", orderid);
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setPayStatus("已支付");
         boolean update = orderInfoService.update(orderInfo, queryWrapper);
@@ -59,6 +59,31 @@ public class OrderInfoController {
         }
 
         return Result.ok(list);
+    }
+
+    //6/cancel
+
+    @GetMapping("{orderid}/cancel")
+    public Result cancel(@PathVariable("orderid")Integer orderid){
+
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", orderid);
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setPayStatus("已取消");
+        boolean update = orderInfoService.update(orderInfo, queryWrapper);
+        return Result.ok();
+    }
+
+
+    @GetMapping("{orderid}/pickup")
+    public Result pickup(@PathVariable("orderid")Integer orderid){
+
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", orderid);
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setPayStatus("已取货");
+        boolean update = orderInfoService.update(orderInfo, queryWrapper);
+        return Result.ok();
     }
 
 
