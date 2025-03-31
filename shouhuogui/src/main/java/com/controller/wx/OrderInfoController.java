@@ -35,12 +35,13 @@ public class OrderInfoController {
         return Result.ok(list);
     }
 
-    @GetMapping("zhifu/{orderid}")
-    public Result zhifu(@PathVariable("orderid") Integer orderid) {
+    @GetMapping("zhifu/{orderid}/{mai}")
+    public Result zhifu(@PathVariable("orderid") Integer orderid,@PathVariable("mai") Integer mai) {
         QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_id", orderid);
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setPayStatus("已支付");
+        orderInfo.setMachineId(mai);
         boolean update = orderInfoService.update(orderInfo, queryWrapper);
         return Result.ok();
     }
