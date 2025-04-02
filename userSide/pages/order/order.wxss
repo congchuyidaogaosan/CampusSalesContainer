@@ -99,3 +99,12 @@
   color: #999;
   font-size: 28rpx;
 }
+
+.completed-text {
+  color: #52c41a;
+  font-size: 28rpx;
+}
+
+.order-status.completed {
+  color: #52c41a;
+}

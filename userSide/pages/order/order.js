@@ -19,25 +19,27 @@ Page({
 
   async loadOrderList() {
     try {
-      // 获取用户信息
       let info = wx.getStorageSync('info')
-      console.log(info.data.userInfo.userId);
-      
       const userId = info.data.userInfo.userId
       wx.showLoading({ title: '加载中' })
       const response = await orderAPI.getOrders(userId)
       
-      // 格式化订单数据
-      const formattedOrders = response.data.map(order => ({
-        ...order,
-        orderTime: this.formatTime(order.orderTime),
-        statusClass: this.getStatusClass(order.payStatus),
-        statusText: this.getStatusText(order.payStatus),
-        // 根据状态显示不同的操作按钮
-        showPay: order.payStatus === this.data.STATUS.UNPAID,
-        showCancel: order.payStatus === this.data.STATUS.UNPAID,
-        showPickup: order.payStatus === this.data.STATUS.UNDELIVERED
-      }))
+      // 先按时间戳排序，再格式化数据
+      const formattedOrders = response.data
+        .sort((a, b) => {
+          // 使用原始的orderTime时间戳进行排序
+          return parseInt(b.orderTime) - parseInt(a.orderTime)
+        })
+        .map(order => ({
+          ...order,
+          orderTime: this.formatTime(order.orderTime),
+          statusClass: this.getStatusClass(order.payStatus),
+          statusText: this.getStatusText(order.payStatus),
+          // 根据状态显示不同的操作按钮
+          showPay: order.payStatus === this.data.STATUS.UNPAID,
+          showCancel: order.payStatus === this.data.STATUS.UNPAID,
+          showPickup: order.payStatus === this.data.STATUS.UNDELIVERED
+        }))
 
       this.setData({ 
         orders: formattedOrders,

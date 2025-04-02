@@ -3,7 +3,7 @@
     <view class="order-item" wx:for="{{orders}}" wx:key="orderId">
       <view class="order-header">
         <text class="order-number">订单号：{{item.orderNumber}}</text>
-        <text class="order-status {{item.statusClass}}">{{item.payStatus}}</text>
+        <text class="order-status {{item.statusClass}}">{{item.statusText}}</text>
       </view>
 
       <view class="order-info">
@@ -21,14 +21,20 @@
         </view>
       </view>
 
-      <view class="order-actions">
-        <block wx:if="{{item.payStatus === '未支付'}}">
-          <button class="action-btn primary" bindtap="repurchase" data-id="{{item.orderId}}">去支付</button>
-          <button class="action-btn" bindtap="cancelOrder" data-id="{{item.orderId}}">取消订单</button>
-        </block>
-        <block wx:else>
-          <button class="action-btn" bindtap="repurchase" data-id="{{item.orderId}}">再次购买</button>
-        </block>
+      <view class="order-footer">
+        <text class="order-time">{{item.orderTime}}</text>
+        <view class="order-actions">
+          <block wx:if="{{item.showPay}}">
+            <button class="btn cancel" bindtap="cancelOrder" data-id="{{item.orderId}}">取消订单</button>
+            <button class="btn pay" bindtap="repurchase" data-id="{{item.orderId}}">立即支付</button>
+          </block>
+          <block wx:elif="{{item.showPickup}}">
+            <button class="btn pickup" bindtap="pickupOrder" data-id="{{item.orderId}}">立即取货</button>
+          </block>
+          <block wx:else>
+            <text class="completed-text">已完成</text>
+          </block>
+        </view>
       </view>
     </view>
   </view>
