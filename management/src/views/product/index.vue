@@ -68,8 +68,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="商品图片" prop="imageUrl">
-          <el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false"
-            :on-success="handleUploadSuccess" :before-upload="beforeUpload">
+          <el-upload class="avatar-uploader" 
+            :action="''" 
+            :show-file-list="false"
+            :http-request="customUpload"
+            :before-upload="beforeUpload">
             <img v-if="productForm.productImage" :src="productForm.productImage" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -134,7 +137,10 @@ import {
   createCategory,
   updateCategory,
   deleteCategory
+
 } from '@/api/product'
+
+import { upload } from '@/api/upload'
 
 export default {
   name: 'Product',
@@ -333,8 +339,20 @@ export default {
       }
       return isImage && isLt2M
     },
+    customUpload(options) {
+      const formData = new FormData()
+      formData.append('file', options.file)
+
+      upload(formData).then(res => {
+        this.productForm.productImage = res.data
+        this.$message.success('上传成功')
+      }).catch(err => {
+        this.$message.error('上传失败')
+      })
+      
+    },
     handleUploadSuccess(res) {
-      this.productForm.imageUrl = res.data.url
+      this.productForm.productImage = res.data
     }
   }
 }

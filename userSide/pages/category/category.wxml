@@ -18,7 +18,7 @@
       <view class="product-item" wx:for="{{products}}" wx:key="productId" bindtap="onProductTap" data-id="{{item.productId}}">
         <image src="{{item.productImage}}" mode="aspectFill" />
         <view class="product-info">
-          <text class="product-name">{{item.productDescription}}</text>
+          <text class="product-name">{{item.productName}}</text>
           <text class="product-price">¥{{item.productPrice}}</text>
           <text class="product-stock">库存: {{item.productStock}}</text>
         </view>

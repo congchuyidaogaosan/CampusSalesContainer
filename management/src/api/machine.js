@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getMachines(params) {
   return request({
-    url: '/api/VendingMachine',
+    url: '/api/VendingMachine/list',
     method: 'get',
     params
   })
@@ -17,24 +17,24 @@ export function getMachine(id) {
 
 export function createMachine(data) {
   return request({
-    url: '/api/VendingMachine',
+    url: '/api/VendingMachine/save',
     method: 'post',
     data
   })
 }
 
-export function updateMachine(id, data) {
+export function updateMachine(data) {
   return request({
-    url: `/api/VendingMachine/${id}`,
-    method: 'put',
+    url: `/api/VendingMachine/updateById`,
+    method: 'post',
     data
   })
 }
 
 export function deleteMachine(id) {
   return request({
-    url: `/api/VendingMachine/${id}`,
-    method: 'delete'
+    url: `/api/VendingMachine/deleteById/${id}`,
+    method: 'post'
   })
 }
 

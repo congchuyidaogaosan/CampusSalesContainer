@@ -19,7 +19,7 @@ public class VendingMachineController {
     @Autowired
     private VendingMachineService productService;
 
-    @GetMapping()
+    @GetMapping("list")
     public Result list() {
         QueryWrapper<VendingMachine> last = new QueryWrapper<VendingMachine>().last("limit 5");
         List<VendingMachine> list = productService.list(last);

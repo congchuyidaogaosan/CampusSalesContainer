@@ -152,7 +152,7 @@ const orderAPI = {
 
   // 获取附近售货柜
   getNearbyMachines: () => {
-    return request('/VendingMachine', {
+    return request('/VendingMachine/list', {
       method: 'GET'
     })
   },

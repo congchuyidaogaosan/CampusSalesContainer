@@ -25,8 +25,10 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api/WXLogin")
 public class LoginController {
 
-    private final String AppId = "wx958c331bb5b02d97";
-    private final String AppSecret = "c7d7d587e080c1dda3b07c7a6ff47f96";
+//    private final String AppId = "wx958c331bb5b02d97";
+//    private final String AppSecret = "c7d7d587e080c1dda3b07c7a6ff47f96";
+        private final String AppId = "wxb38fa1462130b7fd";
+    private final String AppSecret = "f170a3690f49e36610a4f090a383b57a";
 
 //    private final String AppSecret = "e7965d960c3a161ce50bff28eaf42b15";
 
@@ -67,13 +69,13 @@ public class LoginController {
 
 
             // 3. 生成token
-            String token = jwtUtil.generateToken(kehuEntity);
+//            String token = jwtUtil.generateToken(kehuEntity);
             //暂时假用
 //            String token = jwtUtil.generateToken(session_key, openid);
 
             // 4. 构建返回结果
             LoginResponse loginresponse = new LoginResponse();
-            loginresponse.setToken(token);
+//            loginresponse.setToken(token);
             //记得换成用户   kehuEntity
             loginresponse.setUserInfo(kehuEntity);
 

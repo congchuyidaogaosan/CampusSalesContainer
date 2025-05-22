@@ -26,28 +26,20 @@
     <!-- 售货柜列表 -->
     <el-table v-loading="loading" :data="machines" border style="width: 100%">
       <el-table-column prop="machineId" label="售货柜ID" width="100" />
-      <el-table-column prop="code" label="编号" width="120" />
+      <el-table-column prop="machineNumber" label="编号" width="120" />
       <el-table-column prop="machineLocation" label="位置" />
-      <!-- <el-table-column prop="capacity" label="容量" width="100" /> -->
-      <!-- <el-table-column prop="stockCount" label="当前库存" width="100" /> -->
-      <el-table-column label="库存状态" width="100">
-        <template slot-scope="scope">
-          <el-tag :type="getStockStatusType(scope.row)">
-            {{ getStockStatusText(scope.row) }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="status" label="运行状态" width="100">
+      <el-table-column prop="machineCapacity" label="容量" width="100" />
+      <el-table-column prop="machineStatus" label="运行状态" width="100">
         <template slot-scope="scope">
           <el-tag :type="getMachineStatusType(scope.row.machineStatus)">
-            {{ getMachineStatusText(scope.row.machineStatus) }}
+            {{ scope.row.machineStatus }}
           </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="250" fixed="right">
         <template slot-scope="scope">
           <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="text" @click="handleStock(scope.row)">库存</el-button>
+          <!-- <el-button type="text" @click="handleStock(scope.row)">库存</el-button> -->
           <el-button type="text" @click="handleControl(scope.row)">远程控制</el-button>
           <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
         </template>
@@ -64,17 +56,21 @@
     <!-- 售货柜表单对话框 -->
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px">
       <el-form ref="machineForm" :model="machineForm" :rules="machineRules" label-width="100px">
-        <el-form-item label="编号" prop="code">
-          <el-input v-model="machineForm.code" />
+        <el-form-item label="编号" prop="machineNumber">
+          <el-input v-model="machineForm.machineNumber" />
         </el-form-item>
-        <el-form-item label="位置" prop="location">
-          <el-input v-model="machineForm.location" />
+        <el-form-item label="位置" prop="machineLocation">
+          <el-input v-model="machineForm.machineLocation" />
         </el-form-item>
-        <el-form-item label="容量" prop="capacity">
-          <el-input-number v-model="machineForm.capacity" :min="1" />
+        <el-form-item label="容量" prop="machineCapacity">
+          <el-input-number v-model="machineForm.machineCapacity" :min="1" />
         </el-form-item>
-        <el-form-item label="库存预警值" prop="stockWarning">
-          <el-input-number v-model="machineForm.stockWarning" :min="1" />
+        <el-form-item label="状态" prop="machineStatus">
+          <el-select v-model="machineForm.machineStatus" placeholder="请选择状态">
+            <el-option label="正常" value="正常" />
+            <el-option label="故障" value="故障" />
+            <el-option label="离线" value="离线" />
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -112,18 +108,21 @@
       <div v-if="currentMachine" class="control-panel">
         <div class="machine-status">
           <p>当前状态：
-            <el-tag :type="getMachineStatusType(currentMachine.status)">
-              {{ getMachineStatusText(currentMachine.status) }}
+            <el-tag :type="getMachineStatusType(currentMachine.machineStatus)">
+              {{ currentMachine.machineStatus }}
             </el-tag>
           </p>
         </div>
         <div class="control-actions">
-          <el-button type="primary" :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('open')">开门</el-button>
-          <el-button type="warning" :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('reset')">重启</el-button>
-          <el-button type="danger" :disabled="currentMachine.status === 'offline'"
-            @click="controlMachine('shutdown')">关机</el-button>
+          <el-button type="success" 
+            :disabled="currentMachine.machineStatus === '正常'"
+            @click="updateMachineStatus('正常')">设为正常</el-button>
+          <el-button type="warning" 
+            :disabled="currentMachine.machineStatus === '故障'"
+            @click="updateMachineStatus('故障')">设为故障</el-button>
+          <el-button type="info" 
+            :disabled="currentMachine.machineStatus === '离线'"
+            @click="updateMachineStatus('离线')">设为离线</el-button>
         </div>
       </div>
     </el-dialog>
@@ -157,12 +156,26 @@ export default {
       dialogVisible: false,
       dialogTitle: '',
       machineForm: {
-        code: '',
-        location: '',
-        capacity: 100,
-        stockWarning: 10
+        machineId: '',
+        machineNumber: '',
+        machineLocation: '',
+        machineCapacity: 100,
+        machineStatus: '正常'
       },
-      machineRules: {},
+      machineRules: {
+        machineNumber: [
+          { required: true, message: '请输入售货柜编号', trigger: 'blur' }
+        ],
+        machineLocation: [
+          { required: true, message: '请输入售货柜位置', trigger: 'blur' }
+        ],
+        machineCapacity: [
+          { required: true, message: '请输入售货柜容量', trigger: 'blur' }
+        ],
+        machineStatus: [
+          { required: true, message: '请选择售货柜状态', trigger: 'change' }
+        ]
+      },
       stockDialogVisible: false,
       controlDialogVisible: false,
       currentMachine: null,
@@ -212,10 +225,11 @@ export default {
     handleAdd() {
       this.dialogTitle = '新增售货柜'
       this.machineForm = {
-        code: '',
-        location: '',
-        capacity: 100,
-        stockWarning: 10
+        machineId: '',
+        machineNumber: '',
+        machineLocation: '',
+        machineCapacity: 100,
+        machineStatus: '正常'
       }
       this.dialogVisible = true
     },
@@ -229,7 +243,7 @@ export default {
         await this.$confirm('确认删除该售货柜吗？', '提示', {
           type: 'warning'
         })
-        await deleteMachine(row.id)
+        await deleteMachine(row.machineId)
         this.$message.success('删除成功')
         this.loadData()
       } catch (error) {
@@ -239,8 +253,9 @@ export default {
     async submitForm() {
       try {
         await this.$refs.machineForm.validate()
-        if (this.machineForm.id) {
-          await updateMachine(this.machineForm.id, this.machineForm)
+        console.log(this.machineForm)
+        if (this.machineForm.machineId) {
+          await updateMachine( this.machineForm)
         } else {
           await createMachine(this.machineForm)
         }
@@ -293,44 +308,33 @@ export default {
       this.currentMachine = row
       this.controlDialogVisible = true
     },
-    async controlMachine(action) {
+    async updateMachineStatus(status) {
       try {
-        await this.$confirm(`确认要${this.getActionText(action)}吗？`, '提示', {
+        await this.$confirm(`确认要将状态改为"${status}"吗？`, '提示', {
           type: 'warning'
         })
-        await controlMachine(this.currentMachine.id, action)
-        this.$message.success('操作成功')
+        this.currentMachine.machineStatus = status
+        await updateMachine(this.currentMachine)
+        this.$message.success('状态更新成功')
         this.controlDialogVisible = false
         this.loadData()
       } catch (error) {
         console.error(error)
       }
     },
-    getStockStatusType(machine) {
-      const ratio = machine.stockCount / machine.capacity
-      if (ratio < 0.2) return 'danger'
-      if (ratio < 0.5) return 'warning'
-      return 'success'
-    },
-    getStockStatusText(machine) {
-      const ratio = machine.stockCount / machine.capacity
-      if (ratio < 0.2) return '库存不足'
-      if (ratio < 0.5) return '库存偏低'
-      return '库存充足'
-    },
     getMachineStatusType(status) {
       const types = {
-        normal: 'success',
-        fault: 'danger',
-        offline: 'info'
+        '正常': 'success',
+        '故障': 'danger',
+        '离线': 'info'
       }
       return types[status] || 'info'
     },
     getMachineStatusText(status) {
       const texts = {
-        normal: '正常',
-        fault: '故障',
-        offline: '离线'
+        '正常': '正常',
+        '故障': '故障',
+        '离线': '离线'
       }
       return texts[status] || status
     },
