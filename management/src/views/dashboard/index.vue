@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <!-- 数据概览卡片 -->
-    <el-row :gutter="20">
+    <!-- <el-row :gutter="20">
       <el-col :span="6">
         <el-card shadow="hover">
           <div class="data-item">
@@ -78,10 +78,10 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     <!-- 图表区域 -->
-    <el-row :gutter="20" class="chart-row">
+    <!-- <el-row :gutter="20" class="chart-row">
       <el-col :span="16">
         <el-card class="chart-card">
           <div slot="header">
@@ -111,10 +111,10 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     <!-- 最新订单 -->
-    <el-card class="latest-orders">
+    <!-- <el-card class="latest-orders">
       <div slot="header">
         <span>最新订单</span>
         <el-button style="float: right" type="text" @click="viewAllOrders">
@@ -134,7 +134,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
+    </el-card> -->
   </div>
 </template>
 
